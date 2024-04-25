@@ -26,10 +26,10 @@ or you can load manually json file like a library for detect this macropad
 
 ## Preview Hardware
 <p align="center">
-  <img src="DOC/HARDWARE/ergodash2.png" width="25%" height="25%">
-  <img src="DOC/HARDWARE/ergodash4.png" width="25%" height="25%">
-  <img src="DOC/HARDWARE/ergodash5.png" width="25%" height="25%">
-  <img src="DOC/HARDWARE/ergodash6.png" width="25%" height="25%">
+  <img src="DOC/HARDWARE/ergodash2.png" width="50%" height="50%">
+  <img src="DOC/HARDWARE/ergodash4.jpeg" width="50%" height="50%">
+  <img src="DOC/HARDWARE/ergodash5.jpeg" width="50%" height="50%">
+  <img src="DOC/HARDWARE/ergodash6.jpeg" width="50%" height="50%">
 </p>
 
 ## Preview VIA
