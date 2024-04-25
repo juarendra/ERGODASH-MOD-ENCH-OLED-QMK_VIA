@@ -1,41 +1,35 @@
-# Zeapad-Pro-QMK-VIA
-This is Macropad that have function like keyboard but you can setting/proggrammed every single key with anything you want. This macropad also have feature MACRO, it mean you just need prees a single swith for Combination Key. All Function can be setting in Apps named VIA. Then you can buy it in this [TOKOPEDIA](https://tokopedia.link/nYgWruHWJHb) 
-Many people use it for help they for Computer Task Like Edithing Vidio or Excel Formula shortcut
+# Ergodash-Mod-QMK-VIA
 
 ## Spesification
-- STM32F401 as Microcontroller
+- Arduino Pro Micro Type C as Microcontroller
 - QMK Firmware
 - Support VIA, all key and knob can proggrammed
-- RGB Matrix
+- RGB Underglow
 - 4x Layer 
-- 16x Switch , 3 Knob Encoder and 1 OLED LAyer
 - Hotswap Switch
 - 3D Case 
-- USB type C
 
 ## Download VIA
 Link Download VIA(CHOSEE BASED YOUR OS) : https://github.com/the-via/releases/releases
 VIA WEB VERSION : https://usevia.app/
 
-## Auto Detect VIA
-this Device can automatically detect on VIA, just need PC with Intercet Connection
-- Connect your macropad to PC
-- Open VIA
-- It will auto detect
-## load JSON File
+
+## Load JSON File
 or you can load manually json file like a library for detect this macropad
 - Connect your macropad to PC
 - Open VIA
 - In Tab Setting, enable "Show Design Tab"
 - Open Design Tab
-- Load file with name "zeapad_via_definitions.json" 
+- Load file with name "ErgoDash_mod_positron.json" 
 - Open Configure Tab to setting your macropad
 - If nothing happend , do it again from first 
 
 ## Preview Hardware
 <p align="center">
-  <img src="DOC/HARDWARE/hw1.jpeg" width="25%" height="25%">
-  <img src="DOC/HARDWARE/hw2.jpeg" width="25%" height="25%">
+  <img src="DOC/HARDWARE/ergodash2.png" width="25%" height="25%">
+  <img src="DOC/HARDWARE/ergodash4.png" width="25%" height="25%">
+  <img src="DOC/HARDWARE/ergodash5.png" width="25%" height="25%">
+  <img src="DOC/HARDWARE/ergodash6.png" width="25%" height="25%">
 </p>
 
 ## Preview VIA
