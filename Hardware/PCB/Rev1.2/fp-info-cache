@@ -1,0 +1,197 @@
+46805270764854
+prettylib
+Crystal_SMD_3225-4Pin_3.2x2.5mm
+SMD Crystal SERIES SMD3225/4 http://www.txccrystal.com/images/pdf/7m-accuracy.pdf, 3.2x2.5mm^2 package
+SMD SMT crystal
+0
+4
+4
+prettylib
+D_SOD-123
+SOD-123
+SOD-123
+0
+2
+2
+prettylib
+D_SOD-523
+http://www.diodes.com/datasheets/ap02001.pdf p.144
+Diode SOD523
+0
+2
+2
+prettylib
+Fuse_1206_3216Metric
+Fuse SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
+resistor
+0
+2
+2
+prettylib
+JLC_SMT_Assembly_Hole
+
+
+0
+0
+0
+prettylib
+LED-0603
+LED 0603 smd package
+LED led 0603 SMD smd SMT smt smdled SMDLED smtled SMTLED
+0
+2
+2
+prettylib
+LED-0603_flipable
+LED 0603 smd package
+LED led 0603 SMD smd SMT smt smdled SMDLED smtled SMTLED
+0
+4
+2
+prettylib
+LOGO
+
+
+0
+0
+0
+prettylib
+LQFP-48_7x7mm_P0.5mm
+LQFP, 48 Pin (https://www.analog.com/media/en/technical-documentation/data-sheets/ltc2358-16.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
+LQFP QFP
+0
+48
+48
+prettylib
+MX_KAILH_SOCKET_1U
+MXALPS
+MXALPS
+0
+20
+2
+prettylib
+MX_KAILH_SOCKET_2U_2X1U
+MXALPS
+MXALPS
+0
+48
+4
+prettylib
+MountingHole_2.2mm_M2_Pad_Via
+Mounting Hole 2.2mm, M2
+mounting hole 2.2mm m2
+0
+9
+1
+prettylib
+PinHeader_1x06_P2.54mm_Horizontal
+Through hole angled pin header, 1x06, 2.54mm pitch, 6mm pin length, single row
+Through hole angled pin header THT 1x06 2.54mm single row
+0
+6
+6
+prettylib
+RotaryEncoder_Alps_EC11E-Switch_Vertical_H20mm
+Alps rotary encoder, EC12E... with switch, vertical shaft, http://www.alps.com/prod/info/E/HTML/Encoder/Incremental/EC11/EC11E15204A3.html
+rotary encoder
+0
+7
+6
+prettylib
+SK6812_mini_e_flipable
+
+
+0
+12
+4
+prettylib
+SK6812_mini_flipable
+MXALPS
+MXALPS
+0
+12
+4
+prettylib
+SMD-0603
+Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
+capacitor
+0
+2
+2
+prettylib
+SMD-0805
+SMD 0805 (2012 Metric), square (rectangular)
+capacitor
+0
+2
+2
+prettylib
+SMD_Tacticle_Switch_TS24CA
+
+
+0
+4
+2
+prettylib
+SMD_Tacticle_Switch_TS24CA_flipable
+
+
+0
+8
+2
+prettylib
+SOLDER_JUMPER_2
+
+solder jumper bridge configuration
+0
+2
+2
+prettylib
+SOLDER_JUMPER_3
+
+solder jumper bridge configuration
+0
+3
+3
+prettylib
+SOT-23
+SOT-23, Standard
+SOT-23
+0
+3
+3
+prettylib
+SOT-23-5
+5-pin SOT23 package
+SOT-23-5
+0
+5
+5
+prettylib
+SOT-23-6
+6-pin SOT-23 package
+SOT-23-6
+0
+6
+6
+prettylib
+SSD1107_DISPLAY
+0.9n Inch 64x128 I2C OLED LCD Display
+
+0
+12
+4
+prettylib
+TSSOP-8_4.4x3mm_P0.65mm
+8-Lead Plastic Thin Shrink Small Outline (ST)-4.4 mm Body [TSSOP] (see Microchip Packaging Specification 00000049BS.pdf)
+SSOP 0.65
+0
+8
+8
+prettylib
+USB_C_Receptacle_MUP_U22401
+USB Type-C receptacle for USB 2.0
+usb usb-c 2.0 pd
+0
+20
+17

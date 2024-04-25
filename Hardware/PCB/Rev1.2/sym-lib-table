@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name "ergodash-rescue")(type "Legacy")(uri "${KIPRJMOD}/ergodash-rescue.lib")(options "")(descr ""))
+  (lib (name "sofle")(type "Legacy")(uri "C:/Users/jrjua/Documents/Pribadi/redox-keyboard-master/redox/pcb/rev1.0/kicad_files/SofleKeyboard-rescue.lib")(options "")(descr ""))
+  (lib (name "gundam")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/redox-keyboard-master/redox/pcb/rev1.0/kicad_files/gundam.kicad_sym")(options "")(descr ""))
+  (lib (name "yaemk")(type "Legacy")(uri "C:/Users/jrjua/Documents/Pribadi/yaemk-split-kb-main/PCB/YAEMK-cache.lib")(options "")(descr ""))
+)

@@ -1,0 +1,7 @@
+(fp_lib_table
+  (lib (name "sofle")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/redox-keyboard-master/redox/pcb/rev1.0/kicad_files/SofleKeyboard-footprint.pretty")(options "")(descr ""))
+  (lib (name "SofleKeyboard-footprint")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/redox-keyboard-master/redox/pcb/rev1.0/kicad_files/SofleKeyboard-footprint.pretty")(options "")(descr ""))
+  (lib (name "Keebio-Parts.pretty")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/redox-keyboard-master/redox/pcb/rev1.0/kicad_files/Keebio-Parts.pretty")(options "")(descr ""))
+  (lib (name "prettylib")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/yaemk-split-kb-main/PCB/prettylib")(options "")(descr ""))
+  (lib (name "Rev1")(type "KiCad")(uri "C:/Users/jrjua/Documents/Pribadi/ErgoDash-master/PCB/Rev1.2")(options "")(descr ""))
+)
