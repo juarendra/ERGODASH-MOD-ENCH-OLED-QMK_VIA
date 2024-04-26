@@ -1,4 +1,5 @@
 # Ergodash-Mod-QMK-VIA
+this is MOD of ergodash, the normal ergodash just have Swith MX. This mod is for add Encoder, Oled and make it hotswapable with Khail Hotswap
 
 ## Spesification
 - Arduino Pro Micro Type C as Microcontroller
