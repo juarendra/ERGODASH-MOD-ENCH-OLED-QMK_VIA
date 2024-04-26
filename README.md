@@ -8,6 +8,7 @@
 - 4x Layer 
 - Hotswap Switch
 - 3D Case 
+- Ergodash Profile
 
 ## Download VIA
 Link Download VIA(CHOSEE BASED YOUR OS) : https://github.com/the-via/releases/releases
@@ -56,4 +57,5 @@ Here's some examples:
 - MO(1) - Momentarily turn on layer 1
 - LCA(KC_DEL) - Sends Ctrl-Alt-Del
 - MT(MOD_RSFT, KC_ENT) - Sends Shift if held, Enter if tapped
+- MACRO(0) - for register to MACRO no 0
 
