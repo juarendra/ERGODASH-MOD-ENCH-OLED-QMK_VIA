@@ -45,18 +45,3 @@ https://github.com/juarendra/Zeapad-Pro-QMK-VIA/assets/43043633/afd7e68e-0a54-4b
 ## Tutorial VIA Usage
 - https://docs.keeb.io/via
 
-## Cara Setting Knob
-- For Setting Knob you just need enter the command qmk keycode, so the way is same thing with setting for ANY key like in this guide:]
-[GUIDE FOR Setting ANY KEY](https://docs.keeb.io/via)
-
-Here's some examples:
-
-- LALT(KC_TAB) - Sends Alt-Tab
-- LCTL(KC_C) - Sends Ctrl-C
-- LGUI(KC_C) - Sends Cmd-C or Win-C
-- LSFT(LCTL(KC_END)) - Sends Shift-Ctrl-End
-- MO(1) - Momentarily turn on layer 1
-- LCA(KC_DEL) - Sends Ctrl-Alt-Del
-- MT(MOD_RSFT, KC_ENT) - Sends Shift if held, Enter if tapped
-- MACRO(0) - for register to MACRO no 0
-
