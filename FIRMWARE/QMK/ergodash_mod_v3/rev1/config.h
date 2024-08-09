@@ -43,6 +43,7 @@
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { B6 }
 #define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION_RIGHT 2
 #define TAP_CODE_DELAY  10
 
 // Add RGB underglow
