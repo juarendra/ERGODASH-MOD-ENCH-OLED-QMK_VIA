@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "legacy_product_name": "ERGODASH-MOD-ENCH-OLED-QMK_VIA",
+  "current_product_name": "ENCHDASH",
+  "usb_identity": {
+    "vid": "0x4D44",
+    "pid": "0x6061",
+    "status": "legacy-preserved; provenance audit required before reuse in a new allocation"
+  },
+  "artifacts": [
+    {
+      "path": "FIRMWARE/ergodash_rev1_via.hex",
+      "sha256": "cdc3d67382e8ffd0240a79fe39064930dce1abeb77b785657436fe11396e2f0c",
+      "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
+      "source_path": "FIRMWARE/QMK/ergodash",
+      "via_json": "ErgoDash_4key_mod_positron_elektronik.json",
+      "qmk_base_commit": null,
+      "source_commit": null,
+      "build_command": null,
+      "provenance_status": "incomplete"
+    },
+    {
+      "path": "FIRMWARE/omkbd_ergodash_rev1_nowpmmousekey.hex",
+      "sha256": "22665732e1977332298f524e00f63c9e683aa2db3e8f1a2571d20f6d71aa436d",
+      "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
+      "source_path": "FIRMWARE/QMK/ergodash_nowpm_mousekey/ergodash",
+      "via_json": "NEW_ErgoDash_4key_V3_mod_positron_elektronik.json",
+      "qmk_base_commit": null,
+      "source_commit": null,
+      "build_command": null,
+      "provenance_status": "incomplete"
+    },
+    {
+      "path": "FIRMWARE/omkbd_ergodash_rev1_wpmnomousekey.hex",
+      "sha256": "4ee05ef6ac855e19fcd5f552cb140e9924d83e6fc92767f69c2c633827fc6a04",
+      "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
+      "source_path": "FIRMWARE/QMK/ergodash_wpm_nomousekey/ergodash",
+      "via_json": "NEW_ErgoDash_4key_V3_mod_positron_elektronik.json",
+      "qmk_base_commit": null,
+      "source_commit": null,
+      "build_command": null,
+      "provenance_status": "incomplete"
+    }
+  ]
+}

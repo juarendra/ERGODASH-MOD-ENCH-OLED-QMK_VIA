@@ -1,0 +1,25 @@
+ENCHDASH repository license index
+
+This repository contains works under multiple licenses. This file does not
+replace or override notices embedded in individual files.
+
+1. ErgoDash-derived hardware design
+   Original work Copyright (c) 2018 omkbd.
+   ENCHDASH modifications Copyright (c) 2024-2026 Juarendra Ramadhani.
+   Licensed under the MIT License; see LICENSES/MIT-ErgoDash.txt.
+
+2. QMK-derived firmware
+   Licensed under GNU GPL version 2 or, where the source file states it,
+   any later version. Existing file-level notices remain controlling.
+   See LICENSES/GPL-2.0-or-later.txt.
+
+3. Third-party libraries, footprints, 3D models, images, documents, and media
+   Remain under their respective licenses. See THIRD_PARTY_NOTICES.md and
+   license files stored beside those assets.
+
+4. Owner-created documentation and media
+   Copyright (c) 2024-2026 Juarendra Ramadhani unless another notice is
+   present. No trademark or endorsement rights are granted by this index.
+
+The product is an independent derivative of ErgoDash. It is not an official
+ErgoDash revision and is not maintained, approved, or endorsed by omkbd.
