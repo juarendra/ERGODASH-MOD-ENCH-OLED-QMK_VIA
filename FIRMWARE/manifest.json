@@ -3,9 +3,9 @@
   "legacy_product_name": "ERGODASH-MOD-ENCH-OLED-QMK_VIA",
   "current_product_name": "ENCHDASH",
   "usb_identity": {
-    "vid": "0x4D44",
-    "pid": "0x6061",
-    "status": "legacy-preserved; provenance audit required before reuse in a new allocation"
+    "vid": "0x1209",
+    "pid": "0x2013",
+    "status": "allocated under pid.codes VID 0x1209 (org Positron-Electronic), PID 0x2013; registration PR pidcodes/pidcodes.github.com#1303"
   },
   "build_environment": {
     "qmk_base_commit": "3d4da6de29c8635c9cd232ce456d8fec8d31921b",
@@ -14,48 +14,48 @@
     "compiler": "avr-gcc (GCC) 15.1.0",
     "make": "GNU Make 4.4.1",
     "host": "QMK MSYS (MINGW64) on Windows",
-    "rebuilt_at": "2026-10-10T13:00:58Z",
-    "note": "Reproducible compile of the repository source. The original QMK base commit used for the shipped binaries was not recorded, so this is a current-toolchain rebuild, not a bit-identical reproduction. See docs/evidence/qmk-build.md."
+    "rebuilt_at": "2026-10-10T14:30:00Z",
+    "note": "The shipped .hex files are the output of this build: repo source compiled at QMK 0.26.11 with avr-gcc 15.1.0, carrying the new USB identity 0x1209:0x2013 (allocated under pid.codes). Each artifact's sha256 equals its rebuilt_sha256. Build-tree format shims (keyboard.json rename, ssd1306 case, WS2812_DI_PIN, data-driven encoder) were applied only in a throwaway build copy, never to the committed source. See docs/evidence/qmk-build.md."
   },
   "artifacts": [
     {
       "path": "FIRMWARE/ergodash_rev1_via.hex",
-      "sha256": "cdc3d67382e8ffd0240a79fe39064930dce1abeb77b785657436fe11396e2f0c",
+      "sha256": "13922cb81ccccc7ccf2c03f299f24d126f7d72859c8dd49ac93ba1ae1ee6c4f6",
       "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
       "source_path": "FIRMWARE/QMK/ergodash",
       "via_json": "ErgoDash_4key_mod_positron_elektronik.json",
       "qmk_base_commit": "3d4da6de29c8635c9cd232ce456d8fec8d31921b",
       "source_commit": "3e9668b528f0a995bde2ddca47f78af7bd187172",
       "build_command": "qmk compile -kb ench_base/rev1 -km default",
-      "rebuilt_sha256": "f32d1c2033730b0d1ca55c9f59a31081eff0849ec1d2916e2d918aa1cb741e30",
+      "rebuilt_sha256": "13922cb81ccccc7ccf2c03f299f24d126f7d72859c8dd49ac93ba1ae1ee6c4f6",
       "provenance_status": "incomplete",
-      "provenance_note": "Source compiles cleanly to a valid 28320/28672-byte image. Rebuilt hash differs from shipped (different QMK/toolchain; original commit unknown). Not flashed as a rebuild, so not upgraded to 'functionally rebuilt' per docs/evidence/qmk-build.md rules."
+      "provenance_note": "Freshly built from repo source (QMK 0.26.11, avr-gcc 15.1.0) carrying the new USB identity 0x1209:0x2013. The shipped .hex IS this build output (sha256 == rebuilt_sha256). Compiles to a valid 28320/28672-byte image; USB descriptor confirmed to contain 0x1209/0x2013 and no legacy 0x4D44/0x6061. Not yet flashed and VIA-tested on hardware with the new identity, so status stays 'incomplete' pending a device re-test."
     },
     {
       "path": "FIRMWARE/omkbd_ergodash_rev1_nowpmmousekey.hex",
-      "sha256": "22665732e1977332298f524e00f63c9e683aa2db3e8f1a2571d20f6d71aa436d",
+      "sha256": "967925733b816a20effd5254c38162874a5aa296ca8abcd0e3e9d3c38f51e2b7",
       "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
       "source_path": "FIRMWARE/QMK/ergodash_nowpm_mousekey/ergodash",
       "via_json": "NEW_ErgoDash_4key_V3_mod_positron_elektronik.json",
       "qmk_base_commit": "3d4da6de29c8635c9cd232ce456d8fec8d31921b",
       "source_commit": "3e9668b528f0a995bde2ddca47f78af7bd187172",
       "build_command": "qmk compile -kb ench_nowpm/rev1 -km default",
-      "rebuilt_sha256": "d3910cba0b7ccbbf9f838eb9c03292bd0a793ba16dc502c6af5ee0a105f65283",
+      "rebuilt_sha256": "967925733b816a20effd5254c38162874a5aa296ca8abcd0e3e9d3c38f51e2b7",
       "provenance_status": "incomplete",
-      "provenance_note": "Source compiles cleanly to a valid 28340/28672-byte image. Rebuilt hash differs from shipped (different QMK/toolchain; original commit unknown)."
+      "provenance_note": "Freshly built from repo source (QMK 0.26.11, avr-gcc 15.1.0) carrying the new USB identity 0x1209:0x2013. The shipped .hex IS this build output (sha256 == rebuilt_sha256). Compiles to a valid 28340/28672-byte image; USB descriptor confirmed 0x1209/0x2013, no legacy IDs. Not yet flashed and VIA-tested on hardware, so status stays 'incomplete' pending a device re-test."
     },
     {
       "path": "FIRMWARE/omkbd_ergodash_rev1_wpmnomousekey.hex",
-      "sha256": "4ee05ef6ac855e19fcd5f552cb140e9924d83e6fc92767f69c2c633827fc6a04",
+      "sha256": "b3372e2f920233a6aac9cfb6e55d4d4cd97c53b1e0143aaaf6ee80bccf94f57c",
       "hardware_revision": "Rev1.2 repository source; physical sold-unit marking not yet evidenced",
       "source_path": "FIRMWARE/QMK/ergodash_wpm_nomousekey/ergodash",
       "via_json": "NEW_ErgoDash_4key_V3_mod_positron_elektronik.json",
       "qmk_base_commit": "3d4da6de29c8635c9cd232ce456d8fec8d31921b",
       "source_commit": "3e9668b528f0a995bde2ddca47f78af7bd187172",
       "build_command": "qmk compile -kb ench_wpm/rev1 -km default",
-      "rebuilt_sha256": "c587628a173b14858cfb954a314336c1e047061b3ac34020fa66d7ea4edcf375",
+      "rebuilt_sha256": "b3372e2f920233a6aac9cfb6e55d4d4cd97c53b1e0143aaaf6ee80bccf94f57c",
       "provenance_status": "incomplete",
-      "provenance_note": "Source compiles cleanly to a valid 28062/28672-byte image. Rebuilt hash differs from shipped (different QMK/toolchain; original commit unknown)."
+      "provenance_note": "Freshly built from repo source (QMK 0.26.11, avr-gcc 15.1.0) carrying the new USB identity 0x1209:0x2013. The shipped .hex IS this build output (sha256 == rebuilt_sha256). Compiles to a valid 28062/28672-byte image; USB descriptor confirmed 0x1209/0x2013, no legacy IDs. Not yet flashed and VIA-tested on hardware, so status stays 'incomplete' pending a device re-test."
     }
   ]
 }

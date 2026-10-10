@@ -24,9 +24,9 @@ The authoritative machine-readable inventory is `FIRMWARE/manifest.json`. A `pro
 
 | Firmware | Hardware Rev | USB VID:PID | VIA JSON | SHA-256 | Provenance |
 |----------|--------------|-------------|----------|---------|------------|
-| `FIRMWARE/ergodash_rev1_via.hex` | Rev1.2 (repo source) | 0x4D44:0x6061 | `ErgoDash_4key_mod_positron_elektronik.json` | `cdc3d67...96e2f0c` | incomplete |
-| `FIRMWARE/omkbd_ergodash_rev1_nowpmmousekey.hex` | Rev1.2 (repo source) | 0x4D44:0x6061 | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | `2266573...1aa436d` | incomplete |
-| `FIRMWARE/omkbd_ergodash_rev1_wpmnomousekey.hex` | Rev1.2 (repo source) | 0x4D44:0x6061 | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | `4ee05ef...7fc6a04` | incomplete |
+| `FIRMWARE/ergodash_rev1_via.hex` | Rev1.2 (repo source) | 0x1209:0x2013 | `ErgoDash_4key_mod_positron_elektronik.json` | `13922cb...1ee6c4f6` | incomplete |
+| `FIRMWARE/omkbd_ergodash_rev1_nowpmmousekey.hex` | Rev1.2 (repo source) | 0x1209:0x2013 | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | `9679257...8f51e2b7` | incomplete |
+| `FIRMWARE/omkbd_ergodash_rev1_wpmnomousekey.hex` | Rev1.2 (repo source) | 0x1209:0x2013 | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | `b3372e2...cf94f57c` | incomplete |
 
 ### Firmware variant features
 
@@ -41,7 +41,7 @@ Two VIA definition files are referenced by the manifest:
 1. **ErgoDash_4key_mod_positron_elektronik.json** — Used by `ergodash_rev1_via.hex`
 2. **NEW_ErgoDash_4key_V3_mod_positron_elektronik.json** — Used by the two `omkbd_ergodash_rev1_*` variants
 
-Both files define USB VID:PID as `0x4D44:0x6061`, kept as a recorded legacy descriptor value; allocation provenance remains under audit per `FIRMWARE/manifest.json`. Ensure the VIA application loads the correct JSON for your flashed firmware.
+Both files define USB VID:PID as `0x1209:0x2013`, allocated under the pid.codes open-source VID (org Positron-Electronic; registration PR pidcodes/pidcodes.github.com#1303). The shipped `.hex` are rebuilt from source carrying this identity. Ensure the VIA application loads the correct JSON for your flashed firmware.
 
 ## Source mapping
 

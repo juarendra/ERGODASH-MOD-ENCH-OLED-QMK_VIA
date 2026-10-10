@@ -33,6 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Product name**: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH` (primary identity)
 - **README.md**: Complete rewrite with ENCHDASH branding, attribution, and compliance information
 - **Repository description**: Now clearly states independent derivative status and omkbd attribution
+- **USB identity migrated to project-owned pid.codes allocation `0x1209:0x2013`** (org Positron-Electronic), replacing the legacy upstream `0x4D44:0x6061`:
+  - Registration PR opened: [pidcodes/pidcodes.github.com#1303](https://github.com/pidcodes/pidcodes.github.com/pull/1303) (adds `1209/2013/index.md`; awaiting maintainer review).
+  - Swapped `vendorId`/`productId` in both VIA JSONs (`ErgoDash_4key_mod_positron_elektronik.json`, `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`) and `usb.vid`/`usb.pid` in all four `FIRMWARE/QMK/**/rev1/info.json`.
+  - Rebuilt all three shipped binaries from source with the new identity (QMK `0.26.11`, `avr-gcc 15.1.0`) and overwrote the shipped `.hex`: `ergodash_rev1_via.hex` (`13922cb…1ee6c4f6`), `omkbd_ergodash_rev1_nowpmmousekey.hex` (`9679257…8f51e2b7`), `omkbd_ergodash_rev1_wpmnomousekey.hex` (`b3372e2…cf94f57c`). USB descriptor byte-scan confirms `0x1209:0x2013` present and no legacy `0x4D44:0x6061`.
+  - Updated `FIRMWARE/manifest.json` (`usb_identity`, each artifact `sha256`+`rebuilt_sha256`+`provenance_note`, `build_environment.note`), `FIRMWARE/README.md`, root `README.md`, `docs/LEGACY-SUPPORT.md`, `docs/HARDWARE-ATTRIBUTION.md`, `docs/evidence/qmk-build.md`.
+  - Impact: units flashed with earlier binaries enumerate as the legacy ID until re-flashed. Device-test attestation (Gate 4) is now STALE — owner must re-flash and re-run the USB/VIA smoke matrix before it is valid again (`docs/evidence/device-test.md`, `docs/RELEASE-CHECKLIST.md` Gate 4). Rollback: prior binaries recoverable from Git history.
 
 ### Fixed
 - Malformed firmware link in original README (`hhttps://` → correct URL)

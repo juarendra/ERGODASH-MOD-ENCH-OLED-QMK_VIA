@@ -146,7 +146,7 @@ flowchart LR
 
 ## Firmware
 
-The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. USB VID:PID `0x4D44:0x6061` is kept as a recorded legacy descriptor value; allocation provenance remains under audit per FIRMWARE/manifest.json.
+The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. The firmware and VIA JSON now declare USB VID:PID `0x1209:0x2013`, allocated under the pid.codes open-source VID (org Positron-Electronic; registration PR pidcodes/pidcodes.github.com#1303). Units flashed with earlier binaries enumerate as the legacy `0x4D44:0x6061` and must be re-flashed with the current `.hex` to adopt the new identity.
 
 Three legacy firmware variants are available:
 

@@ -6,7 +6,7 @@ This guide helps you select, flash, and build firmware for your ENCHDASH keyboar
 
 ## Quick Start: Which Firmware Should I Use?
 
-The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. USB VID:PID `0x4D44:0x6061` is kept as a recorded legacy descriptor value; allocation provenance remains under audit per FIRMWARE/manifest.json.
+The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. The source now declares USB VID:PID `0x1209:0x2013`, allocated under the pid.codes open-source VID (org Positron-Electronic); see FIRMWARE/manifest.json. The shipped `.hex` binaries below still enumerate as the legacy `0x4D44:0x6061` and must be rebuilt and re-flashed to pick up the new identity.
 
 | Firmware File | Best For | Features | VIA JSON |
 |---------------|----------|----------|----------|

@@ -4,8 +4,8 @@
     "url": "",
     "maintainer": "Positron Electronic",
     "usb": {
-        "vid": "0x4D44",
-        "pid": "0x6061",
+        "vid": "0x1209",
+        "pid": "0x2013",
         "device_version": "1.0.0"
     },
     "layouts": {

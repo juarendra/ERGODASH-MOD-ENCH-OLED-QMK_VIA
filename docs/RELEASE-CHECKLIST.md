@@ -32,32 +32,31 @@ This checklist ensures every release meets compliance, quality, and compatibilit
 ```
 *Note: These are illustrative template values. Actual observed hashes are recorded in `FIRMWARE/manifest.json`.*
 
-### 3. QMK Build Evidence (SOURCE-REPRODUCIBLE, HASH-DIVERGENT)
+### 3. QMK Build Evidence (BUILT-AND-SHIPPED FROM SOURCE)
 
-**Status**: Rebuilt 2026-10-10. All three variants compile cleanly from repo source with a documented toolchain (QMK `0.26.11`, `avr-gcc 15.1.0`). Rebuilt hashes differ from shipped because the original QMK commit/toolchain was never recorded. See [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
+**Status**: Rebuilt and shipped 2026-10-10. The three shipped `.hex` ARE this build's output — repo source compiled with QMK `0.26.11` + `avr-gcc 15.1.0`, carrying the new USB identity `0x1209:0x2013`. Each shipped sha256 equals its `rebuilt_sha256` in `FIRMWARE/manifest.json`. See [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
 
-- [ ] Source QMK commit identified and recorded (original commit unknown; a representative 2024 release was used)
 - [x] Build command documented in `FIRMWARE/manifest.json`
-- [ ] Clean build reproduces identical or functionally equivalent binaries (compiles cleanly; byte-identical reproduction not achieved; functional equivalence not yet hardware-tested)
+- [x] Shipped binaries == rebuilt binaries (sha256 match by construction)
+- [x] USB descriptor byte-scan confirms `0x1209:0x2013`, no legacy `0x4D44:0x6061`
 - [x] Build log and environment recorded (`build_environment` in manifest + evidence doc)
-- [x] Diff analysis recorded (large byte differences consistent with newer QMK/avr-gcc; see evidence doc)
 
-**Remaining**: `provenance_status` stays `incomplete`. Upgrade to `functionally rebuilt` requires flashing shipped + rebuilt `.hex` to hardware and confirming identical behaviour; `verified` requires an exact hash match (needs the original QMK commit). This is the only open release-blocking gate.
+**Remaining**: `provenance_status` stays `incomplete` — now a hardware-attestation gap, not a hash gap. Upgrade to `functionally rebuilt` requires flashing the shipped `.hex` and confirming the smoke matrix with the new identity (see Gate 4, now STALE).
 
-### 4. Device Enumeration and VIA Test (OWNER-ATTESTED)
+### 4. Device Enumeration and VIA Test (STALE — RE-TEST REQUIRED)
 
-**Status**: Owner-attested 2026-10-10. See [Device Test](evidence/device-test.md).
+**Status**: STALE as of 2026-10-10. The prior owner attestation covered the legacy `0x4D44:0x6061` build. The shipped firmware now declares `0x1209:0x2013`, so every USB/VIA check must be re-run on hardware. See [Device Test](evidence/device-test.md).
 
-- [x] Firmware flashed to physical ATmega32u4 test hardware
-- [x] USB enumeration verified (host recognizes device with `0x4D44:0x6061`)
-- [x] All keys tested (matrix scan confirms every switch)
-- [x] Encoder rotation and press tested
-- [x] OLED display functional
-- [x] RGB lighting functional (if variant includes RGB)
-- [x] VIA desktop/web detects device with matching JSON
-- [x] VIA key remapping tested and persists across power cycle
+- [ ] Firmware (current `0x1209:0x2013` `.hex`) flashed to physical ATmega32u4 test hardware
+- [ ] USB enumeration verified (host recognizes device with `0x1209:0x2013`)
+- [ ] All keys tested (matrix scan confirms every switch)
+- [ ] Encoder rotation and press tested
+- [ ] OLED display functional
+- [ ] RGB lighting functional (if variant includes RGB)
+- [ ] VIA desktop/web detects device with matching JSON
+- [ ] VIA key remapping tested and persists across power cycle
 
-**Note**: Owner attestation; the product has been fabricated and sold working. Raw enumeration logs and VIA captures are retained by the owner, not committed here.
+**Note**: The legacy-identity attestation (device fabricated and sold working at `0x4D44:0x6061`) is retained in the Device Test record but no longer reflects the shipped binaries. Owner must re-flash and re-attest.
 
 ### 5. VIA JSON Validation (Local Only)
 

@@ -43,8 +43,8 @@ The following facts are verifiable from the QMK source trees in `FIRMWARE/QMK/er
 ### USB Device Descriptor (from `info.json`)
 - `keyboard_name`: "ErgoDash Hotswap By Positron"
 - `manufacturer`: "Positron Electronic"
-- USB VID:PID: `0x4D44:0x6061`
-- **Provenance status**: incomplete (per `FIRMWARE/manifest.json`). Source-to-binary identity not established; build provenance null.
+- USB VID:PID: `0x1209:0x2013` (allocated under pid.codes, org Positron-Electronic; registration PR pidcodes/pidcodes.github.com#1303). Legacy was `0x4D44:0x6061` (upstream, retired).
+- **Provenance status**: incomplete (per `FIRMWARE/manifest.json`). Shipped `.hex` are built from this source with the new identity; functional hardware attestation pending re-test.
 
 ### Enabled Features (from `rules.mk`, `config.h`, keymaps)
 - **Bootloader**: `caterina` (Arduino-compatible)

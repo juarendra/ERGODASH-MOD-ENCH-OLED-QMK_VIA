@@ -1,15 +1,22 @@
 # ENCHDASH QMK Build Evidence
 
-**Status**: source-reproducible, hash-divergent. The three shipped binaries were
-rebuilt from the repository source with a current QMK toolchain. All three
-compile cleanly to valid, flash-sized AVR images, but the rebuilt hashes differ
-from the shipped hashes because the **original QMK base commit and toolchain
-version used for the shipped `.hex` files were never recorded**. Physical device
-function is owner-attested separately in `device-test.md`.
+**Status**: built-and-shipped from source. The three shipped binaries ARE the
+output of this build — repo source compiled with QMK `0.26.11` + avr-gcc
+`15.1.0`, carrying the new USB identity `0x1209:0x2013` (allocated under
+pid.codes; registration PR pidcodes/pidcodes.github.com#1303). Each shipped
+`.hex` sha256 equals its `rebuilt_sha256` in `FIRMWARE/manifest.json`. All three
+compile cleanly to valid, flash-sized AVR images and the USB descriptor was
+confirmed to contain `0x1209`/`0x2013` and no legacy `0x4D44`/`0x6061`.
+
+**Not yet proven**: physical device function with the new identity. The prior
+owner attestation in `device-test.md` covered the OLD `0x4D44:0x6061` binaries
+and is now STALE — the USB identity changed, so the owner must re-flash and
+re-run the smoke matrix. `provenance_status` stays `incomplete` until that
+device re-test is recorded.
 
 **Date rebuilt**: 2026-10-10
-**Purpose**: Establish that the repository source compiles to working firmware
-and record the exact build environment.
+**Purpose**: Migrate the shipped firmware to the project-owned pid.codes USB
+identity and record the exact build environment.
 
 ---
 
@@ -64,27 +71,24 @@ behaviour, matrix, layers, or features.
 
 ---
 
-## Hash comparison
+## Hashes (shipped == this build)
+
+The shipped `.hex` were overwritten with this build's output, so each shipped
+sha256 now equals its `rebuilt_sha256`:
 
 ```
-                                    shipped sha256                     rebuilt sha256
-ergodash_rev1_via.hex               cdc3d673…396e2f0c                  f32d1c20…cb741e30
-omkbd…nowpmmousekey.hex             22665732…71aa436d                  d3910cba…105f65283
-omkbd…wpmnomousekey.hex             4ee05ef6…27fc6a04                  c587628a…4edcf375
+ergodash_rev1_via.hex                  13922cb81ccccc7ccf2c03f299f24d126f7d72859c8dd49ac93ba1ae1ee6c4f6
+omkbd_ergodash_rev1_nowpmmousekey.hex  967925733b816a20effd5254c38162874a5aa296ca8abcd0e3e9d3c38f51e2b7
+omkbd_ergodash_rev1_wpmnomousekey.hex  b3372e2f920233a6aac9cfb6e55d4d4cd97c53b1e0143aaaf6ee80bccf94f57c
 ```
 
-Decoded-binary comparison (Intel-HEX → raw via `avr-objcopy`):
+USB descriptor check (Intel-HEX → raw via `avr-objcopy`, byte scan): each image
+contains the little-endian `09 12` (VID `0x1209`) and `13 20` (PID `0x2013`)
+and zero occurrences of the legacy `44 4d` / `61 60`.
 
-| Variant | Shipped bytes | Rebuilt bytes | Differing bytes |
-|---------|---------------|---------------|-----------------|
-| Base    | 28294 | 28320 | 26861 |
-| No-WPM  | 28558 | 28340 | 24597 |
-| WPM     | 28532 | 28062 | 24443 |
-
-The large byte differences are consistent with a **different QMK revision and a
-much newer avr-gcc** (code layout, inlining, and library objects all shift). This
-is expected for AVR builds across compiler generations and does not by itself
-indicate a source mismatch.
+The prior shipped binaries (legacy `0x4D44:0x6061`, hashes `cdc3d673…`,
+`22665732…`, `4ee05ef6…`) are superseded; they remain recoverable from Git
+history for rollback.
 
 ---
 
@@ -92,37 +96,36 @@ indicate a source mismatch.
 
 - **What is proven**: the repository source is complete and compiles to a valid,
   correctly-sized firmware image for all three variants with a documented
-  toolchain. There is no missing or broken source.
-- **What is not proven**: bit-for-bit (or byte-for-byte) reproduction of the
-  shipped binaries. The original build's QMK commit and compiler version were
-  never recorded, so an exact match cannot be reconstructed from the repository
-  alone.
-- **`provenance_status`** stays `incomplete` in `FIRMWARE/manifest.json`. Per the
-  upgrade rules below, `verified` requires an exact hash match and
-  `functionally rebuilt` requires flashing both the shipped and rebuilt binaries
-  to hardware and confirming identical behaviour. Neither has been done here, so
-  the status is not upgraded. The rebuilt hashes and the exact build environment
-  are recorded in the manifest (`build_environment`, `rebuilt_sha256`,
-  `qmk_base_commit`, `build_command`) for transparency.
+  toolchain. The shipped `.hex` are this build's output and carry the new USB
+  identity `0x1209:0x2013` (descriptor byte-scan confirmed).
+- **What is not proven**: physical device behaviour with the new identity. No
+  board has been flashed and smoke-tested since the USB identity changed.
+- **`provenance_status`** stays `incomplete` in `FIRMWARE/manifest.json`. It is
+  NOT a hash-reproduction gap anymore (shipped == rebuilt by construction); it is
+  a hardware-attestation gap. The status upgrades to `functionally rebuilt` once
+  the owner flashes a board and confirms the smoke matrix.
 
 ### Provenance status upgrade rules
 
-- `verified` **only** when the built artifact SHA-256 matches the corresponding
-  manifest SHA-256 exactly.
-- `functionally rebuilt` **only** when hashes differ **and** both versions are
-  flashed to test hardware and matrix / encoder / OLED / RGB / split / VIA
-  behaviour is confirmed identical.
+- `verified` **only** when the artifact is additionally confirmed against an
+  independently-reproduced hash from a recorded toolchain.
+- `functionally rebuilt` **only** when the shipped `.hex` is flashed to test
+  hardware and matrix / encoder / OLED / RGB / split / VIA behaviour is confirmed
+  working with the new `0x1209:0x2013` identity.
 - Otherwise `incomplete`.
 
-### Path to a clean `verified`/`functionally rebuilt` (future work)
+### Path to `functionally rebuilt` (owner device re-test — REQUIRED)
 
-1. Identify the original QMK commit (bisect 2024 releases against a known-good
-   shipped hash), **or**
-2. Flash both the shipped and the rebuilt `.hex` to a physical board and run the
-   smoke matrix in `docs/RELEASE-CHECKLIST.md`; if behaviour is identical, set
-   `functionally rebuilt` and record the test.
-3. For all future ENCHDASH builds, record the QMK commit + toolchain at build
-   time so this gap never recurs.
+The USB identity changed, so the earlier `device-test.md` attestation (legacy
+`0x4D44:0x6061`) is STALE. To clear it:
+
+1. Flash each shipped `.hex` to a physical board.
+2. Confirm the host enumerates `0x1209:0x2013`.
+3. Load the matching VIA JSON; confirm every key, both encoder directions +
+   presses, OLED, RGB, split link, and reset/bootloader path.
+4. Record the result in `device-test.md` and set `functionally rebuilt`.
+5. For all future ENCHDASH builds, record the QMK commit + toolchain at build
+   time so provenance never regresses.
 
 ---
 
