@@ -63,7 +63,7 @@ Each component is recorded with:
 
 | Component | Repository Path | Claimed Source | License Status | Usage Status | Evidence |
 |-----------|----------------|----------------|----------------|--------------|----------|
-| VIA JSON definitions | `*.json` (root), `FIRMWARE/*.json` | Based on VIA specification | Not independently established | Active | Owner verification required: VIA JSON files are configuration data; licensing not established; do not assume GPL merely because firmware is GPL |
+| VIA JSON definitions | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` (canonical), `ErgoDash_4key_mod_positron_elektronik.json` (legacy non-V3) | Based on VIA specification | Not independently established | Active | Owner verification required: VIA JSON files are configuration data; licensing not established; do not assume GPL merely because firmware is GPL |
 
 ---
 

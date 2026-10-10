@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documented 3D models (`Hardware/PCB/Rev1.2/3d/`) as KiCad visualization-only, excluded from manufacturing output and shipped product; vendor provenance recorded as non-blocking owner-accepted position with removal upgrade path in `THIRD_PARTY_NOTICES.md`
 - Untracked stale `tools/__pycache__/*.pyc` (now covered by `.gitignore`; stops repeated working-tree churn)
 - Bounded residual "Existing units remain supported" wording in `README.md` to the repo-provable legacy-availability statement
+- Removed two redundant VIA JSON files in `FIRMWARE/`: `ErgoDash_4key_mod_positron_elektronik.json` (byte-identical duplicate of the root legacy file) and `ErgoDash_4key_V3_mod_positron_elektronik.json` (older V3 copy lacking the rgblight menu, superseded by the root canonical). Canonical VIA JSON is `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`; file contents unchanged, only duplicates removed. Clarified canonical vs legacy in `README.md`, `FIRMWARE/README.md`, `THIRD_PARTY_NOTICES.md`
 
 ### Deprecated
 - Legacy product name `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remains supported but will appear only in legacy documentation

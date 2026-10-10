@@ -70,7 +70,7 @@ Three legacy firmware variants are available:
 | `omkbd_ergodash_rev1_nowpmmousekey.hex` | Mouse keys enabled, no WPM | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | [FIRMWARE/](FIRMWARE/) |
 | `omkbd_ergodash_rev1_wpmnomousekey.hex` | WPM tracking enabled, no mouse keys | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | [FIRMWARE/](FIRMWARE/) |
 
-**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root — `ErgoDash_4key_mod_positron_elektronik.json` and `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`. `FIRMWARE/ErgoDash_4key_V3_mod_positron_elektronik.json` is an older copy without the rgblight menu and is not referenced by the manifest.
+**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root — `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` (canonical; includes the rgblight menu) and `ErgoDash_4key_mod_positron_elektronik.json` (legacy non-V3 layout).
 
 **Firmware provenance**: See [FIRMWARE/manifest.json](FIRMWARE/manifest.json) for SHA-256 checksums, source paths, and build status.
 

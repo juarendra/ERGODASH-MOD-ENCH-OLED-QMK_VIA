@@ -14,7 +14,7 @@ The repository maps these artifacts to Rev1.2 source files. Physical sold-unit m
 | **omkbd_ergodash_rev1_nowpmmousekey.hex** | Users who need mouse keys | Mouse key support, no WPM tracking | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` |
 | **omkbd_ergodash_rev1_wpmnomousekey.hex** | Users who want WPM display | WPM tracking on OLED, no mouse keys | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` |
 
-**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root (one level above this directory) — `ErgoDash_4key_mod_positron_elektronik.json` and `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`. `FIRMWARE/ErgoDash_4key_V3_mod_positron_elektronik.json` is an older copy without the rgblight menu and is not referenced by the manifest.
+**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root (one level above this directory) — `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` (canonical; includes the rgblight menu) and `ErgoDash_4key_mod_positron_elektronik.json` (legacy non-V3 layout).
 
 **Default recommendation**: `ergodash_rev1_via.hex` — covers most use cases.
 
