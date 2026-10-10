@@ -11,7 +11,7 @@ Licensed under the MIT License.
 Copyright (c) 2024–2026 Juarendra Ramadhani  
 Commercial identity: Positron Electronic
 
-Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Existing units remain supported under that legacy name. See [Legacy Support](docs/LEGACY-SUPPORT.md).
+Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Legacy firmware and VIA JSON for units sold under that name remain available; physical compatibility must be confirmed before new flashing. See [Legacy Support](docs/LEGACY-SUPPORT.md).
 
 ---
 
