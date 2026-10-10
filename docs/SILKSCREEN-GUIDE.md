@@ -269,62 +269,48 @@ When receiving first boards from manufacturer:
 
 ## Part 8: Evidence Submission
 
-After completing KiCad edits, create `docs/evidence/kicad-owner-verification.md` with:
+After completing KiCad edits, the owner must supply verification evidence.
 
-```markdown
-# ENCHDASH KiCad Owner Verification Evidence
+**Status:** No owner-supplied evidence has been recorded in this repository.
 
-**Date**: YYYY-MM-DD  
-**Verified by**: [Owner name]  
-**Hardware revision**: Rev1.2
+See [KiCad Owner Verification](evidence/kicad-owner-verification.md) for the evidence checklist.
 
-## Title Block
+### Required Evidence Items
 
-![Title block screenshot](../screenshots/title-block.png)
+The owner should capture and submit:
 
-- Title: ENCHDASH ✓
-- Revision: 1.2 ✓
-- Company: Positron Electronic ✓
-- Attribution comments present ✓
+1. **Title block screenshot**: File → Page Settings in KiCad schematic editor
+   - Verify: Title, Revision, Company, attribution comments present
 
-## PCB Renders
+2. **PCB front render**: KiCad 3D Viewer or Gerber viewer
+   - Verify: Component placement, board outline correct
 
-### Front
-![Front render](../screenshots/pcb-front.png)
+3. **PCB back render**: Must show silkscreen attribution text
+   - Verify: Attribution visible and legible
 
-### Back (with attribution)
-![Back render](../screenshots/pcb-back.png)
+4. **ERC result**: Inspect → Electrical Rules Checker in schematic editor
+   - Screenshot showing error count
 
-Attribution text visible and legible ✓
+5. **DRC result**: Inspect → Design Rules Checker in PCB editor
+   - Screenshot showing error count and silkscreen clearance status
 
-## ERC Result
+6. **Gerber preview**: View exported Gerbers in online or desktop viewer
+   - Tools: https://www.pcbway.com/project/OnlineGerberViewer.html or https://tracespace.io/view/
+   - Verify: Silkscreen matches KiCad preview
 
-![ERC](../screenshots/erc-result.png)
+7. **First-article photo**: Photo of first manufactured board
+   - Verify: Silkscreen legible, text not clipped, QR code (if used) scans
 
-Errors: 0 ✓
+### Evidence Location
 
-## DRC Result
+> ⚠️ **Owner evidence pending** — see [KiCad Owner Verification](evidence/kicad-owner-verification.md)
 
-![DRC](../screenshots/drc-result.png)
+All evidence artifacts (screenshots, photos, test results) should be:
+- Placed in `docs/evidence/screenshots/` or linked externally
+- Referenced in `docs/evidence/kicad-owner-verification.md` with checkboxes marked when verified
+- Reviewed by a second person before manufacturing approval
 
-Errors: 0 ✓
-Silkscreen clearance violations: 0 ✓
-
-## Gerber Preview
-
-![Gerber back](../screenshots/gerber-back-silkscreen.png)
-
-Reviewed with: [Viewer name]  
-Silkscreen matches KiCad preview ✓
-
-## Manufacturing Approval
-
-- [ ] Ready for manufacturing
-- [ ] First article inspection required before full batch
-
-**Approved by**: ___________  
-**Date**: ___________
-```
+**Manufacturing approval may only be granted after all evidence items are supplied and verified.**
 
 ---
 

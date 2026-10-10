@@ -6,7 +6,7 @@ This guide helps you select, flash, and build firmware for your ENCHDASH keyboar
 
 ## Quick Start: Which Firmware Should I Use?
 
-ENCHDASH has three pre-compiled firmware variants. All work with Rev1.2 hardware and use USB VID:PID `0x4D44:0x6061`.
+The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. USB VID:PID `0x4D44:0x6061` is kept as a recorded legacy descriptor value; allocation provenance remains under audit per FIRMWARE/manifest.json.
 
 | Firmware File | Best For | Features | VIA JSON |
 |---------------|----------|----------|----------|
@@ -14,9 +14,13 @@ ENCHDASH has three pre-compiled firmware variants. All work with Rev1.2 hardware
 | **omkbd_ergodash_rev1_nowpmmousekey.hex** | Users who need mouse keys | Mouse key support, no WPM tracking | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` |
 | **omkbd_ergodash_rev1_wpmnomousekey.hex** | Users who want WPM display | WPM tracking on OLED, no mouse keys | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` |
 
+**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root (one level above this directory) — `ErgoDash_4key_mod_positron_elektronik.json` and `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`. `FIRMWARE/ErgoDash_4key_V3_mod_positron_elektronik.json` is an older copy without the rgblight menu and is not referenced by the manifest.
+
 **Default recommendation**: `ergodash_rev1_via.hex` — covers most use cases.
 
 ---
+
+**Feature comparison ground truth**: Cells reflect the mapped source tree's `rules.mk` and `config.h` settings. Shipped-binary features are not independently verified. The base variant's source tree enables WPM in `rev1/keymaps/default/rules.mk`.
 
 ## Firmware Feature Comparison
 
@@ -28,10 +32,12 @@ ENCHDASH has three pre-compiled firmware variants. All work with Rev1.2 hardware
 | RGB underglow | ✅ | ✅ | ✅ |
 | N-key rollover | ✅ | ✅ | ✅ |
 | Mouse keys | ❌ | ✅ | ❌ |
-| WPM tracking | ❌ | ❌ | ✅ |
-| Flash size | ~77.7 KB | ~78.5 KB | ~78.4 KB |
+| WPM tracking | ⚠️ | ❌ | ✅ |
+| HEX file size | ~77.7 KB | ~78.5 KB | ~78.4 KB |
 
-**Note**: Enabling both mouse keys and WPM tracking exceeds ATmega32u4 flash limits (28 KB available after bootloader). Choose one feature set.
+⚠️ **base variant WPM status**: The source tree `FIRMWARE/QMK/ergodash/rev1/keymaps/default/rules.mk` contains `WPM_ENABLE = yes`, so the shipped `ergodash_rev1_via.hex` binary's WPM behavior is ambiguous. Cell marked ⚠️.
+
+**Flash limit note**: No combined mouse-keys + WPM variant has a size report. Do not publish a combined variant until a size report proves it fits. Note: two omkbd variants ship with exactly one of mouse keys or WPM enabled; no combined-build evidence exists.
 
 ---
 
@@ -159,39 +165,41 @@ cd qmk_firmware
 # Install dependencies
 qmk setup
 
-# Copy ENCHDASH source to QMK tree
-cp -r /path/to/ENCHDASH/FIRMWARE/QMK/ergodash keyboards/ergodash_custom
+# Copy ENCHDASH source trees to QMK
+cp -r /path/to/ENCHDASH/FIRMWARE/QMK/ergodash keyboards/ergodash
+cp -r /path/to/ENCHDASH/FIRMWARE/QMK/ergodash_nowpm_mousekey/ergodash keyboards/ergodash_nowpm_mousekey
+cp -r /path/to/ENCHDASH/FIRMWARE/QMK/ergodash_wpm_nomousekey/ergodash keyboards/ergodash_wpm_nomousekey
 ```
+
+**Provenance note**: The QMK base commit is not pinned or recorded (provenance incomplete per FIRMWARE/manifest.json). These commands are an unverified procedure — see `docs/evidence/qmk-build.md` for the blocked baseline procedure.
 
 ### Build Commands
 
-**Base firmware**:
+**Base firmware (ergodash_rev1_via.hex)**:
 ```bash
-qmk compile -kb ergodash_custom/rev1 -km default
+qmk compile -kb ergodash/rev1 -km default
 ```
 
-**With mouse keys**:
+**Mouse keys variant (nowpm)**:
 ```bash
-# Edit keyboards/ergodash_custom/rules.mk:
-# MOUSEKEY_ENABLE = yes
-
-qmk compile -kb ergodash_custom/rev1 -km default
+qmk compile -kb ergodash_nowpm_mousekey/rev1 -km default
 ```
 
-**With WPM tracking**:
-```bash
-# Edit keyboards/ergodash_custom/rev1/keymaps/default/config.h:
-# #define WPM_ENABLE
+Mouse keys are enabled in `keyboards/ergodash_nowpm_mousekey/rules.mk` (`MOUSEKEY_ENABLE = yes`). The user does not edit it.
 
-qmk compile -kb ergodash_custom/rev1 -km default
+**WPM tracking variant (wpm)**:
+```bash
+qmk compile -kb ergodash_wpm_nomousekey/rev1 -km default
 ```
+
+WPM is enabled in `keyboards/ergodash_wpm_nomousekey/rev1/keymaps/default/rules.mk` (`WPM_ENABLE = yes`). The nowpm tree has `#WPM_ENABLE = yes` commented out.
 
 **Output**: `.hex` file in `qmk_firmware/.build/`
 
 ### Flash from QMK CLI
 
 ```bash
-qmk flash -kb ergodash_custom/rev1 -km default
+qmk flash -kb ergodash/rev1 -km default
 ```
 
 This compiles and flashes in one command. Press reset when prompted.
@@ -273,7 +281,7 @@ See `manifest.json` for current status of each firmware variant.
 
 ### Enabling Features via `rules.mk`
 
-Edit `keyboards/ergodash_custom/rules.mk`:
+Edit `keyboards/ergodash/rules.mk` (or the variant tree you're customizing):
 
 ```makefile
 MOUSEKEY_ENABLE = yes       # Mouse keys
@@ -288,7 +296,7 @@ COMMAND_ENABLE = no         # Debug commands (disable to save space)
 
 ### Custom OLED Graphics
 
-Edit `keyboards/ergodash_custom/rev1/keymaps/default/oled.c`:
+Edit `keyboards/ergodash/rev1/keymaps/default/oled.c` (or the variant tree):
 
 - `render_logo()`: Replace the 128-byte `raw_logo[]` array with your own bitmap
 - `print_status_narrow()`: Customize status text and layout
@@ -299,13 +307,13 @@ Edit `keyboards/ergodash_custom/rev1/keymaps/default/oled.c`:
 Create a new keymap directory:
 
 ```bash
-cp -r keyboards/ergodash_custom/rev1/keymaps/default keyboards/ergodash_custom/rev1/keymaps/myname
+cp -r keyboards/ergodash/rev1/keymaps/default keyboards/ergodash/rev1/keymaps/myname
 ```
 
-Edit `keyboards/ergodash_custom/rev1/keymaps/myname/keymap.c` and compile:
+Edit `keyboards/ergodash/rev1/keymaps/myname/keymap.c` and compile:
 
 ```bash
-qmk compile -kb ergodash_custom/rev1 -km myname
+qmk compile -kb ergodash/rev1 -km myname
 ```
 
 ---
@@ -316,7 +324,7 @@ qmk compile -kb ergodash_custom/rev1 -km myname
 - **QMK Documentation**: https://docs.qmk.fm/
 - **VIA Documentation**: https://docs.keeb.io/via
 - **Firmware manifest**: [FIRMWARE/manifest.json](../FIRMWARE/manifest.json)
-- **Legacy support**: [docs/LEGACY-SUPPORT.md](LEGACY-SUPPORT.md)
+- **Legacy support**: [Legacy support](../docs/LEGACY-SUPPORT.md)
 
 ---
 
@@ -330,4 +338,4 @@ qmk compile -kb ergodash_custom/rev1 -km myname
 ---
 
 **Last updated**: 2026-10-08  
-**Applies to**: ENCHDASH Rev1.2 hardware
+**Applies to**: Mapped Rev1.2 source trees; physical sold-unit compatibility not independently evidenced

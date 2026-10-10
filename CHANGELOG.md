@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - KiCad silkscreen guide for owner (`docs/SILKSCREEN-GUIDE.md`)
 - Release checklist (`docs/RELEASE-CHECKLIST.md`)
 - QMK build evidence placeholder (`docs/evidence/qmk-build.md`)
+- SofleKeyboard footprint library MIT license (`Hardware/PCB/Rev1.2/SofleKeyboard-footprint.pretty/LICENSE`, Josef Adamcik 2019)
+- `.gitignore` (excludes `__pycache__/`, `.cooper/`)
 
 ### Changed
 - **Product name**: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH` (primary identity)
@@ -32,6 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing root LICENSE file
 - Missing GPL and MIT license texts
 - Absence of third-party component license inventory
+- Unbounded device-behavior claims ("works exactly as before", "remains fully supported") in `docs/DEPLOYMENT-REPORT.md`, `docs/RELEASE-CHECKLIST.md`, `docs/IMPLEMENTATION-SUMMARY.md`, `QUICKSTART.md` — now bounded to repo-provable statements
+- Stale validator section counts ("sections 1-6" → "all 7 sections") in `QUICKSTART.md`, `docs/IMPLEMENTATION-SUMMARY.md`
+- Removed 4 unused vendored footprint libraries with zero PCB references (`Keebio-Parts.pretty`, `keyboard_parts.pretty-master`, `keebs.pretty-master`, `ProMicro.pretty-master`); PCB unchanged (footprint geometry embedded in `.kicad_pcb`)
+- `THIRD_PARTY_NOTICES.md` updated with 2026-10-10 footprint usage audit (119 instances; SofleKeyboard MIT confirmed; SK6812/3D/media gaps documented)
 
 ### Deprecated
 - Legacy product name `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remains supported but will appear only in legacy documentation
@@ -70,29 +76,10 @@ Original repository state before compliance and identity remediation. Product so
 
 ## Rollback Notes
 
-### To Revert to Pre-Compliance State
-
-If this update causes unforeseen issues and you need to return to the original state:
-
-```bash
-# Revert to commit before compliance work
-git log --oneline --grep="ENCHDASH"  # find first ENCHDASH commit
-git revert <commit-hash>
-
-# Or reset to specific commit (destructive)
-git reset --hard <commit-before-enchdash>
-```
-
-**Impact of rollback**:
-- Repository name reverts to `ERGODASH-MOD-ENCH-OLED-QMK_VIA`
-- LICENSE, attribution, and compliance files removed
-- README returns to original version
-- Firmware binaries and VIA JSON remain unchanged (hardware-compatible)
-- Existing customers unaffected (firmware/VIA JSON compatibility preserved)
-
-**Data loss**: Compliance documentation, validator scripts, and evidence files will be lost.
-
-**Recommendation**: Keep a separate Git branch (`pre-compliance`) as a snapshot before applying these changes.
+Normal rollback: create an owner-approved `git revert` commit for the specific
+change, preserve all Git history and legacy artifacts, then verify local links,
+hashes, and customer download paths. Do not use force-push, `reset --hard`, or
+remove license/provenance/evidence files as a rollback method.
 
 ---
 
@@ -116,10 +103,10 @@ Units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" require no changes:
 
 | Aspect | Action Required | Compatibility |
 |--------|-----------------|---------------|
-| Firmware | No change needed | 100% compatible |
-| VIA JSON | Continue using existing file | 100% compatible |
-| Hardware | No physical changes | Identical PCB |
-| Branding | Update is optional | Legacy name supported |
+| Firmware | No change needed | Legacy artifacts preserved; exact build provenance not evidenced |
+| VIA JSON | Continue using existing file | Legacy artifacts preserved; identical PCB not independently verified |
+| Hardware | No physical changes | Legacy artifacts preserved; physical compatibility not evidenced |
+| Branding | Update is informational | Legacy name supported |
 | Documentation | Use new guides (recommended) | Applies to legacy units |
 
 **Optional update path**:

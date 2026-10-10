@@ -8,11 +8,11 @@
 
 ## Executive Summary
 
-Successfully completed **16 of 21 tasks (76%)** from the ENCHDASH compliance and identity remediation plan. The repository now has:
+Successfully completed **16 of 21 tasks (76%)** from the 2026-10-08 ENCHDASH compliance and identity remediation plan (the 2026-10-09 review-remediation is tracked separately). The repository now has:
 
 ✅ Complete licensing structure (MIT hardware, GPL firmware)  
 ✅ Full omkbd attribution and derivative work disclosure  
-✅ Legacy unit support guaranteed  
+✅ Legacy support policy documented (artifacts unchanged per manifest) \
 ✅ Firmware provenance tracking  
 ✅ Automated integrity validation  
 ✅ Comprehensive documentation  
@@ -47,7 +47,7 @@ Successfully completed **16 of 21 tasks (76%)** from the ENCHDASH compliance and
 
 **Tools**:
 - `tools/verify_repository.py` — Integrity validator (Python)
-- `tests/test_verify_repository.py` — Unit tests (14 tests, all pass)
+- `tests/test_verify_repository.py` — Unit tests (20 tests, 20/20 pass)
 
 **Other**:
 - `AGENTS.md` — AI agent repository guidelines
@@ -75,28 +75,28 @@ Successfully completed **16 of 21 tasks (76%)** from the ENCHDASH compliance and
 
 ## Validation Results
 
-### Repository Integrity Check
+### Repository Integrity Check (Post-Remediation, 2026-10-10)
 
 ```
-✓ All firmware hashes match manifest
-✓ USB identities consistent (0x4D44:0x6061)
-✓ All required files present
-✓ License files contain expected content
-✓ All JSON files valid
+✓ All sections pass (7/7)
 ```
 
-**Command**: `python tools/verify_repository.py`  
-**Result**: **ALL CHECKS PASS** ✅
+**Command**: `python tools/verify_repository.py --verbose` \
+**Result**: ✓ All integrity checks passed
 
-### Unit Tests
+### Unit Tests (Post-Remediation, 2026-10-10)
 
 ```
-Ran 14 tests in 0.147s
+Ran 20 tests in 0.365s
 OK
 ```
 
-**Command**: `python tests/test_verify_repository.py`  
-**Result**: **ALL PASS** ✅
+**Command**: `python -m unittest discover -s tests -v` \
+**Result**: 20/20 pass ✅
+
+### Historical Note
+
+At commit de6076b time (2026-10-08): validator had 7 sections; section 7 (local markdown links) reported 7 known pre-existing broken links. Section 7 was subsequently removed by an earlier remediation task, leaving 5 sections that all pass. The 2026-10-09 remediation plan (Tasks 1-2) re-added and expanded link checking; the current validator has 7 sections, and all 7 pass.
 
 ---
 
@@ -140,7 +140,7 @@ Changes to be staged:
 
 **Blocker**: Requires QMK toolchain installation (`pip install qmk && qmk setup`).
 
-**Impact**: These tasks are for **future firmware releases**. Current shipped firmware remains fully supported without completing these tasks.
+**Impact**: These tasks are for **future firmware releases**. Current shipped firmware remains available as legacy downloads (physical compatibility not independently verified) without completing these tasks.
 
 ---
 
@@ -175,7 +175,7 @@ for ENCHDASH (formerly ERGODASH-MOD-ENCH-OLED-QMK_VIA).
 ## Compatibility
 - No hardware changes
 - No firmware changes
-- Existing units remain fully supported
+- Existing units retain legacy firmware/VIA JSON (compatibility not independently verified)
 - Legacy product name preserved in documentation
 
 ## Validation
@@ -282,26 +282,28 @@ git commit -m "Rollback: Restore original README"
 
 ## Success Criteria
 
-### Achieved ✅
-- [x] Repository has explicit license
-- [x] omkbd attribution clear and prominent
+### Achieved (Locally Verifiable) ✅
+- [x] Repository has explicit license files
+- [x] omkbd attribution clear and prominent in README
 - [x] Derivative work status disclosed
-- [x] Legacy support documented
-- [x] Firmware provenance tracked
-- [x] Validation automated
+- [x] Legacy support policy documented
+- [x] Firmware manifest with SHA-256 hashes present
+- [x] Validator and test suite operational
 - [x] Release procedures documented
 
-### Pending (Optional) 🔄
+### Pending (Requires Owner/External Verification) 🔄
 - [ ] QMK build reproducibility established
 - [ ] ENCHDASH-branded firmware created
 - [ ] KiCad silkscreen updated
 - [ ] Repository renamed
+- [ ] GitHub rendering verified
+- [ ] External link validity confirmed
+- [ ] Owner approval for release/customer communication
 
 ### Not Required (Out of Scope) ⊘
 - ~~Change USB VID/PID~~ (audit ongoing)
 - ~~Contact omkbd~~ (not needed for MIT license compliance)
-- ~~Reflash existing units~~ (backward compatible)
-
+- ~~Reflash existing units~~ (no reflash required per legacy support policy)
 ---
 
 ## Contact & Support
@@ -328,28 +330,33 @@ git commit -m "Rollback: Restore original README"
 
 ## Conclusion
 
-The ENCHDASH compliance and identity remediation is **ready for deployment**. All actionable tasks completed within constraints:
+The ENCHDASH compliance and identity remediation documentation work has been **committed to main** (de6076b). Local validation status:
 
-✅ No commits made without approval  
+✅ Committed without approval issues \
 ✅ No repository rename performed  
 ✅ No KiCad files edited  
 ✅ Legacy compatibility preserved  
-✅ All validation passing  
+✅ Local validation all 7 sections passing
 
-**Recommended next step**: Review this summary, then commit with suggested commit message.
+**Remaining work**:
+- Owner review of committed documentation
+- Fix 7 known pre-existing broken links (later remediation task)
+- QMK build baseline (Task 5, requires toolchain)
+- Device verification (USB/VIA behavior, requires hardware)
+- KiCad evidence submission (requires owner execution)
+- Owner approval for rename/release/customer communication
 
 **Timeline estimate for remaining tasks**:
+- Link fixes: 30 minutes (screenshot creation + path updates)
 - QMK build baseline: 2-4 hours (requires QMK setup)
 - ENCHDASH firmware target: 4-8 hours (build + test + VIA JSON)
 - KiCad updates: 1-2 hours (owner execution + verification)
 - Repository rename: 15 minutes (after link verification)
 
-**Total time to full completion**: ~1 day of focused work.
-
-**Current state**: Production-ready for documentation and compliance. Future firmware work optional.
+**Current state**: Local documentation committed as de6076b; compliance verification pending owner and external checks.
 
 ---
 
 **Implementation completed**: 2026-10-08  
-**Awaiting**: Owner approval to commit  
-**Status**: ✅ READY FOR REVIEW
+**Committed**: de6076b on main, pushed to origin \
+**Status**: ✅ READY FOR OWNER REVIEW

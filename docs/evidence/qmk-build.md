@@ -1,8 +1,12 @@
 # ENCHDASH QMK Build Evidence
 
-**Status**: Baseline not yet established  
-**Date**: 2026-10-08  
+**Status**: incomplete. The repository records shipped binary hashes and source
+mappings, but no QMK base commit, reproducible build, USB enumeration, VIA
+device test, or hardware smoke test has been evidenced here.
+
+**Date**: 2026-10-08
 **Purpose**: Document reproducible QMK build process for legacy firmware validation
+
 
 ---
 
@@ -123,7 +127,7 @@ If hashes differ but behavior is identical:
 ### Scenario C: Cannot Reproduce
 
 - **Action**: Keep `provenance_status: "incomplete"`, document attempted QMK commits
-- **Impact**: Shipped binaries remain supported but unverified against source
+- **Impact**: Shipped binaries remain supported as legacy downloads; physical compatibility and build provenance must be confirmed before new flashing
 
 ---
 
@@ -145,11 +149,26 @@ qmk flash -kb ergodash_legacy_base/rev1 -km default
 
 ## Documentation Requirements
 
-Once baseline is established, create:
+Once baseline is established, document and attach the following evidence before
+updating `FIRMWARE/manifest.json` provenance_status from `incomplete`:
 
-1. **This file** (`docs/evidence/qmk-build.md`): Complete with QMK commit, commands, hashes
-2. **Manifest update**: Set provenance fields in `FIRMWARE/manifest.json`
-3. **Build script** (optional): `tools/build_firmware.sh` for one-command rebuild
+1. **Exact QMK base commit** (full SHA) used for each variant build
+2. **Compiler/toolchain details** (gcc-arm-none-eabi version, QMK version)
+3. **Exact build command** (e.g., `qmk compile -kb ... -km default`)
+4. **Output path** of the produced artifact
+5. **Artifact SHA-256 hash** of the built `.hex`
+
+### Provenance status upgrade rules
+
+- `verified` **only** when the built artifact SHA-256 matches the corresponding
+  manifest SHA-256 exactly.
+- `functionally rebuilt` **only** when hashes differ **and** the following
+  documented device behavior tests confirm identical functionality:
+  - Flash both versions to test hardware
+  - Verify matrix scanning, encoder, OLED, and RGB all function identically
+  - Test VIA compatibility with both binaries
+
+If any required evidence is missing, `provenance_status` remains `incomplete`.
 
 ---
 

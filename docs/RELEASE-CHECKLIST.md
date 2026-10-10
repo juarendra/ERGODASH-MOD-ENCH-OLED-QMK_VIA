@@ -6,58 +6,105 @@ This checklist ensures every release meets compliance, quality, and compatibilit
 
 ## Pre-Release Validation
 
-### 1. Repository Integrity
+### 1. Local Repository Integrity
 
 - [ ] Run `python tools/verify_repository.py` — all checks pass
 - [ ] Run `python tests/test_verify_repository.py` — all tests pass
 - [ ] Verify Git working tree clean (no uncommitted changes)
 - [ ] Confirm current commit hash recorded
+- [ ] All local documentation links verified (no 404s)
+- [ ] All external links verified (GitHub, manufacturer tools, datasheets)
 
-### 2. Firmware Validation
+### 2. Legacy Binary Validation
 
-- [ ] All firmware binaries built from documented QMK commit
-- [ ] Build command recorded in `FIRMWARE/manifest.json`
-- [ ] SHA-256 hashes computed and recorded
-- [ ] Provenance status set: `verified`, `functionally rebuilt`, or `incomplete`
-- [ ] Firmware flashed to test hardware — keys/encoder/OLED/RGB verified
-- [ ] VIA detection works with matching JSON
+- [ ] All firmware binaries present in `FIRMWARE/`
+- [ ] `FIRMWARE/manifest.json` SHA-256 hashes computed
+- [ ] Hash verification passes: computed hashes match manifest
+- [ ] Provenance status recorded: `verified`, `functionally rebuilt`, or `incomplete`
 
-### 3. VIA JSON Validation
+**Example manifest hashes (template values for reference)**:
+```json
+{
+  "ergodash_rev1_via.hex": "abc123...",
+  "omkbd_ergodash_rev1_nowpmmousekey.hex": "def456...",
+  "omkbd_ergodash_rev1_wpmnomousekey.hex": "ghi789..."
+}
+```
+*Note: These are illustrative template values. Actual observed hashes are recorded in `FIRMWARE/manifest.json`.*
+
+### 3. QMK Build Evidence (GATE: BLOCKED)
+
+**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+
+- [ ] Source QMK commit identified and recorded
+- [ ] Build command documented in `FIRMWARE/manifest.json`
+- [ ] Clean build reproduces identical or functionally equivalent binaries
+- [ ] Build log and environment recorded
+- [ ] Diff analysis (if hashes differ) shows only metadata/timestamp differences
+
+**Blocker**: No QMK commit, build environment, or reproduction attempt is recorded.
+Procedure for obtaining this evidence: see [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
+
+### 4. Device Enumeration and VIA Test (GATE: BLOCKED)
+
+**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+
+- [ ] Firmware flashed to physical ATmega32u4 test hardware
+- [ ] USB enumeration verified (host recognizes device with correct VID/PID)
+- [ ] All keys tested (matrix scan confirms every switch)
+- [ ] Encoder rotation and press tested
+- [ ] OLED display functional
+- [ ] RGB lighting functional (if variant includes RGB)
+- [ ] VIA desktop/web detects device with matching JSON
+- [ ] VIA key remapping tested and persists across power cycle
+
+**Blocker**: No device test log, USB enumeration capture, or VIA detection screenshot is recorded.
+
+### 5. VIA JSON Validation (Local Only)
 
 - [ ] `vendorId` and `productId` match firmware USB descriptor
 - [ ] Matrix dimensions match firmware `MATRIX_ROWS` × `MATRIX_COLS`
 - [ ] Layout matches physical key positions
-- [ ] JSON passes validation: `python -m json.tool FILENAME.json > NUL`
-- [ ] VIA desktop/web loads JSON and remaps keys successfully
+- [ ] JSON syntax valid: `python -m json.tool FILENAME.json > NUL`
 
-### 4. Hardware Validation (For New PCB Batches)
+*Note: Full VIA detection requires physical device test (Gate 4).*
 
-- [ ] KiCad ERC: no errors
-- [ ] KiCad DRC: no errors
-- [ ] Title block updated per `docs/SILKSCREEN-GUIDE.md`
-- [ ] Silkscreen readable, no overlap with pads/holes
-- [ ] BOM matches schematic
-- [ ] Gerber files exported and reviewed
-- [ ] Manufacturer DFM check passed
+### 6. KiCad Owner Evidence (GATE: BLOCKED)
 
-### 5. Documentation
+**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+
+See [KiCad Owner Verification](evidence/kicad-owner-verification.md) for full checklist.
+
+- [ ] KiCad ERC: result recorded with error count
+- [ ] KiCad DRC: result recorded with error count
+- [ ] Title block updated per [Silkscreen Guide](SILKSCREEN-GUIDE.md)
+- [ ] Silkscreen attribution present and legible
+- [ ] Silkscreen does not overlap pads, holes, copper, or keepouts
+- [ ] Gerber files reviewed in viewer
+- [ ] First-article production photo obtained
+- [ ] Evidence reviewer and date recorded
+
+**Blocker**: No owner-supplied KiCad screenshots, Gerber previews, ERC/DRC results, or manufacturing photos are recorded.
+
+### 7. Documentation Completeness
 
 - [ ] `README.md` links work (no 404s)
 - [ ] `CHANGELOG.md` updated with release notes
 - [ ] `FIRMWARE/manifest.json` matches distributed binaries
-- [ ] `docs/LEGACY-SUPPORT.md` updated if variants added
+- [ ] [Legacy Support Guide](LEGACY-SUPPORT.md) updated if variants added
+- [ ] [Firmware Documentation](../FIRMWARE/README.md) current
 - [ ] Version numbers consistent across all files
 
 ---
 
-## Release Artifacts
+## Release Artifact Preparation
 
 ### Required Files in Release Package
 
 **Firmware** (choose variant for customer):
 - [ ] `.hex` file with SHA-256 in filename or separate `.sha256` file
 - [ ] Matching VIA JSON file
-- [ ] `FIRMWARE/README.md` (flashing instructions)
+- [ ] [Flashing instructions](../FIRMWARE/README.md)
 - [ ] Source code reference (Git commit or archive)
 
 **Documentation**:
@@ -73,7 +120,56 @@ This checklist ensures every release meets compliance, quality, and compatibilit
 
 ---
 
+## Rollback Artifact Preservation
+
+Before publishing release:
+
+- [ ] Previous working firmware `.hex` archived with commit hash
+- [ ] Git commit of last known-good state recorded
+- [ ] Rollback instructions documented (see Rollback Procedure below)
+
+---
+
+## Owner Approval Gate (FINAL GATE)
+
+**All prior gates must pass before this section.**
+
+- [ ] Repository integrity verified
+- [ ] Legacy binary hashes verified
+- [ ] QMK build evidence obtained (Gate 3)
+- [ ] Device enumeration and VIA test passed (Gate 4)
+- [ ] KiCad owner evidence obtained (Gate 6)
+- [ ] Documentation links verified
+- [ ] Release artifacts prepared
+- [ ] Rollback artifacts preserved
+
+**Owner decision** (check all that apply):
+- [ ] Approve GitHub repository rename (if applicable)
+- [ ] Approve GitHub release publication
+- [ ] Approve customer communication (if applicable)
+- [ ] Approve marketplace listing updates (if applicable)
+- [ ] Approve `git push` to public repository
+
+**Explicit owner approval required**: ___________ \
+**Date**: ___________
+
+---
+
+## Known Issues
+
+**Status**: Unresolved provenance and unverified evidence until gates pass.
+
+- **QMK Build Evidence** (Gate 3): No QMK commit, build command, or reproduction attempt recorded. Provenance incomplete.
+- **Device Test** (Gate 4): No USB enumeration log, key test results, or VIA detection screenshot recorded. Functional verification incomplete.
+- **KiCad Owner Evidence** (Gate 6): No ERC/DRC results, Gerber previews, or manufacturing photos recorded. Hardware verification incomplete.
+
+These issues block release. Once all gates pass, this section should be updated to reflect resolved status or remaining known issues (if any).
+
+---
+
 ## GitHub Release Steps
+
+**Prerequisites**: All gates passed, owner approval obtained.
 
 ### 1. Version Tag
 
@@ -99,22 +195,22 @@ git push origin v1.0.0
 ### Firmware Variants
 
 **ergodash_rev1_via.hex** (Recommended)
-- SHA-256: `abc123...`
+- SHA-256: `[see manifest.json]`
 - Features: VIA, encoder, OLED, RGB
 - VIA JSON: `ErgoDash_4key_mod_positron_elektronik.json`
 
 **omkbd_ergodash_rev1_nowpmmousekey.hex**
-- SHA-256: `def456...`
+- SHA-256: `[see manifest.json]`
 - Features: VIA, encoder, OLED, RGB, mouse keys
 - VIA JSON: `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`
 
 **omkbd_ergodash_rev1_wpmnomousekey.hex**
-- SHA-256: `ghi789...`
+- SHA-256: `[see manifest.json]`
 - Features: VIA, encoder, OLED (with WPM), RGB
 - VIA JSON: `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`
 
 ### Installation
-See [FIRMWARE/README.md](FIRMWARE/README.md) for flashing instructions.
+See [FIRMWARE/README.md](../FIRMWARE/README.md) for flashing instructions.
 
 ### Changes
 - Initial compliance and identity remediation
@@ -123,10 +219,10 @@ See [FIRMWARE/README.md](FIRMWARE/README.md) for flashing instructions.
 - Established firmware provenance tracking
 
 ### Compatibility
-Legacy units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" remain fully supported.
+Legacy units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" retain legacy firmware and VIA JSON availability; physical compatibility is not independently verified.
 
 ### Known Issues
-None.
+See main checklist for gate status.
 
 ### Breaking Changes
 None. This is a documentation and compliance update; no electrical changes.
@@ -157,9 +253,9 @@ Your ERGODASH-MOD-ENCH-OLED-QMK_VIA keyboard has been renamed to ENCHDASH
 as part of a compliance and attribution update.
 
 What this means for you:
-✓ Your keyboard works exactly as before
+✓ Your keyboard is unaffected by the rename; confirm physical compatibility before any new flashing
 ✓ No reflashing required
-✓ Existing firmware and VIA JSON remain supported
+✓ Legacy firmware and VIA JSON remain available (physical compatibility not independently verified)
 ✓ New documentation available at: [GitHub URL]
 
 If you wish to update to the latest firmware (optional):
@@ -167,7 +263,7 @@ If you wish to update to the latest firmware (optional):
 2. Follow flashing guide: [FIRMWARE/README.md URL]
 3. Use the same VIA JSON you currently have
 
-Nothing changes if you don't update. Your keyboard remains fully supported.
+Nothing changes if you don't update. Legacy firmware and VIA JSON remain available; physical compatibility and build provenance must be confirmed before new flashing.
 
 Questions? Contact: [Support Email]
 
@@ -288,5 +384,5 @@ If changing USB VID/PID:
 
 ---
 
-**Last updated**: 2026-10-08  
+**Last updated**: 2026-10-09 \
 **Applies to**: ENCHDASH all revisions

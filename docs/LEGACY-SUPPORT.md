@@ -1,6 +1,6 @@
 # ENCHDASH Legacy Support
 
-Products previously sold as `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remain supported. The ENCHDASH naming change does not indicate an electrical redesign and does not require owners to reflash working units.
+Products previously sold as `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remain supported. The ENCHDASH naming change does not indicate an electrical redesign; no electrical redesign is documented in this repository. The renaming does not require owners to reflash working units. Legacy downloads and matching VIA JSON remain available. Physical compatibility and historical build provenance must be confirmed before new flashing.
 
 ## Safety rules
 
@@ -36,12 +36,12 @@ The authoritative machine-readable inventory is `FIRMWARE/manifest.json`. A `pro
 
 ## VIA JSON compatibility
 
-Two VIA definition files exist in the repository:
+Two VIA definition files are referenced by the manifest:
 
 1. **ErgoDash_4key_mod_positron_elektronik.json** — Used by `ergodash_rev1_via.hex`
 2. **NEW_ErgoDash_4key_V3_mod_positron_elektronik.json** — Used by the two `omkbd_ergodash_rev1_*` variants
 
-Both files define USB VID:PID as `0x4D44:0x6061`. Ensure the VIA application loads the correct JSON for your flashed firmware.
+Both files define USB VID:PID as `0x4D44:0x6061`, kept as a recorded legacy descriptor value; allocation provenance remains under audit per `FIRMWARE/manifest.json`. Ensure the VIA application loads the correct JSON for your flashed firmware.
 
 ## Source mapping
 
@@ -54,5 +54,4 @@ Both files define USB VID:PID as `0x4D44:0x6061`. Ensure the VIA application loa
 A fourth source variant exists (`FIRMWARE/QMK/ergodash_mod_v3/`) but no corresponding `.hex` is distributed.
 
 ## Support policy
-
-Existing units remain supported indefinitely. Legacy firmware binaries, VIA JSON files, and source code will not be removed from the repository. Future ENCHDASH-branded releases will coexist with legacy artifacts to ensure backward compatibility.
+Existing units remain supported indefinitely. Legacy firmware binaries, VIA JSON files, and source code will not be removed from the repository. Future ENCHDASH-branded releases will coexist with legacy artifacts to ensure backward compatibility. The legacy product name `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remains searchable.

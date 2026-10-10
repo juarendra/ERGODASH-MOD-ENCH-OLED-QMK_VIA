@@ -1,13 +1,13 @@
 # ENCHDASH Compliance Implementation - Quick Start
 
-Implementasi compliance ENCHDASH selesai. Dokumen ini panduan cepat untuk owner.
+Implementasi dokumentasi compliance ENCHDASH sudah di-commit (de6076b); verifikasi compliance menunggu owner.
 
 ---
 
-## Status: ✅ READY FOR COMMIT
+## Status: ✅ SIAP REVIEW OWNER
 
 - **Tasks completed**: 16/21 (76%)
-- **Validation**: All checks pass ✅
+- **Validation**: All sections pass ✅
 - **Tests**: 14/14 pass ✅
 - **Files**: 19 created, 1 modified, 0 deleted
 
@@ -50,57 +50,49 @@ cat docs/LEGACY-SUPPORT.md
 
 ---
 
-## Commit (Pilih Salah Satu)
+## Commit Future Changes
 
-### Opsi 1: Pakai Script Helper (Recommended)
+**Work sudah di-commit** (de6076b). Untuk perubahan future:
+
+> ⚠️ **PENTING**: `tools/commit_compliance.sh` kini hanya memvalidasi dan preview dengan allowlist guard (20 path). Script ini tidak pernah stage/commit/push secara otomatis. **Owner approval wajib** sebelum staging, commit, atau push — gunakan `bash tools/commit_compliance.sh --stage` hanya setelah persetujuan. Jangan pakai untuk commit tanpa approval owner.
+### Flow Wajib
 ```bash
+# 1. Run validator + tests
+python tools/verify_repository.py
+python -m unittest discover -s tests
+
+# 2. Review diff
+git diff
+
+# 3. Commit HANYA via helper — SETELAH guard allowlist ditambahkan (Task 8 remediation plan)
 bash tools/commit_compliance.sh
+
+# 4. Push HANYA setelah owner approval
+git push origin main
 ```
 
-Script akan:
-1. ✓ Validasi otomatis
-2. ✓ Tunjukkan preview commit
-3. ✓ Stage semua file
-4. ✓ Commit dengan message template
+### ⚠️ JANGAN
+- ❌ `git add -A` (stage semua termasuk file tidak terkait)
+- ❌ Commit manual tanpa validasi
+- ❌ Push tanpa owner approval
 
-### Opsi 2: Manual
-```bash
-# Stage semua
-git add -A
+### Commit Message Template (untuk future)
+```
+docs: [deskripsi singkat]
 
-# Review diff
-git diff --cached --stat
+[detail perubahan]
 
-# Commit
-git commit -m "feat: ENCHDASH compliance and identity remediation
-
-Add comprehensive licensing, attribution, and provenance tracking.
-
-- Add LICENSE index and full license texts
-- Create firmware provenance manifest
-- Establish legacy support documentation
-- Add repository integrity validator
-- Rebrand README to ENCHDASH
-
-No hardware/firmware changes. Existing units fully supported."
-
-# Push
-git push origin main
+Validation: tests pass, validator all 7 sections pass
 ```
 
 ---
 
-## Setelah Commit
+## Manual Check di GitHub
 
-### GitHub Checks
+Cek manual di GitHub (tidak bisa diverifikasi dari repo):
 1. Buka https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
 2. Cek README tampil dengan "ENCHDASH"
-3. Cek badge LICENSE muncul (auto-detect)
-
-### Update Repo Settings (Opsional)
-- Description: "ENCHDASH - Independent split ergonomic keyboard derived from ErgoDash by omkbd"
-- Topics: `qmk`, `via`, `mechanical-keyboard`, `ergonomic`
-
+3. Cek badge LICENSE muncul (auto-detect GitHub)
 ---
 
 ## Tasks yang Blocked (Opsional)
@@ -120,7 +112,7 @@ Tasks yang perlu QMK:
 - Task 5: Establish QMK build baseline
 - Task 6: Create ENCHDASH firmware
 
-**Dampak**: Firmware yang ada tetap supported tanpa ini. Tasks ini untuk **future releases**.
+**Dampak**: Firmware legacy tetap ada di repo sesuai kebijakan legacy support (docs/LEGACY-SUPPORT.md). Tasks ini untuk **future releases**.
 
 ---
 
@@ -183,18 +175,17 @@ git status
 
 ## Action Items
 
-- [ ] Review files (5 menit)
-- [ ] Run validator (1 menit)
-- [ ] Commit (pilih opsi 1 atau 2)
-- [ ] Push ke GitHub
-- [ ] Verify di GitHub
-- [ ] (Opsional) Install QMK untuk Task 5-6
-- [ ] (Nanti) Update KiCad untuk batch baru
+- [ ] Review owner: commit de6076b + b54bc43 sudah di main
+- [ ] Owner approval untuk rename/release
+- [ ] QMK build baseline (Task 5)
+- [ ] Device verification (USB/VIA)
+- [ ] KiCad evidence (untuk batch PCB baru nanti)
+- [ ] Update KiCad untuk batch baru (ikuti docs/SILKSCREEN-GUIDE.md)
 
 ---
 
-**Status**: ✅ Siap commit  
+**Status**: ✅ Siap review owner (remediation in progress)
 **Risk**: Low (documentation only, validated, reversible)  
-**Impact**: Compliance achieved, legacy supported  
+**Dampak**: Dokumen sesuai bukti lokal; verifikasi compliance menunggu owner/eksternal
 
-**Next**: Run `bash tools/commit_compliance.sh` atau commit manual.
+**Next**: Owner review → approval → remediation plan completion

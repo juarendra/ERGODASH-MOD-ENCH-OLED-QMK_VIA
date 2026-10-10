@@ -52,7 +52,7 @@ Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Existing units remain sup
 
 | Revision | Notes | PCB Source | Status |
 |----------|-------|------------|--------|
-| Rev1.2 | Current production | `Hardware/PCB/Rev1.2/` | Active |
+| Rev1.2 | Only revision with source in this repository | `Hardware/PCB/Rev1.2/` | Documented |
 
 **Safety**: Do not cross-flash firmware between unconfirmed hardware revisions. Check your PCB marking before flashing.
 
@@ -60,13 +60,17 @@ Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Existing units remain sup
 
 ## Firmware
 
-Three legacy firmware variants are available, all built for Rev1.2 hardware with USB VID:PID `0x4D44:0x6061`:
+The repository maps these artifacts to Rev1.2 source files. Physical sold-unit marking and compatibility are not independently evidenced here. Confirm the PCB marking and matching VIA definition before flashing; do not cross-flash an unconfirmed revision. USB VID:PID `0x4D44:0x6061` is kept as a recorded legacy descriptor value; allocation provenance remains under audit per FIRMWARE/manifest.json.
+
+Three legacy firmware variants are available:
 
 | Firmware | Features | VIA JSON | Download |
 |----------|----------|----------|----------|
 | `ergodash_rev1_via.hex` | Base: Encoder + OLED + VIA | `ErgoDash_4key_mod_positron_elektronik.json` | [FIRMWARE/](FIRMWARE/) |
 | `omkbd_ergodash_rev1_nowpmmousekey.hex` | Mouse keys enabled, no WPM | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | [FIRMWARE/](FIRMWARE/) |
 | `omkbd_ergodash_rev1_wpmnomousekey.hex` | WPM tracking enabled, no mouse keys | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` | [FIRMWARE/](FIRMWARE/) |
+
+**VIA JSON location**: the VIA JSON files referenced by the manifest live in the repository root — `ErgoDash_4key_mod_positron_elektronik.json` and `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`. `FIRMWARE/ErgoDash_4key_V3_mod_positron_elektronik.json` is an older copy without the rgblight menu and is not referenced by the manifest.
 
 **Firmware provenance**: See [FIRMWARE/manifest.json](FIRMWARE/manifest.json) for SHA-256 checksums, source paths, and build status.
 
@@ -235,7 +239,7 @@ See [LICENSE](LICENSE) for the repository-wide license index.
 
 ### Q: Can I use legacy firmware on existing units?
 
-**Yes.** Units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" remain fully supported. You do not need to reflash or change VIA JSON files if your keyboard is working.
+**Yes.** Units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" remain supported; legacy downloads and matching VIA JSON remain available. Physical compatibility and historical build provenance must be confirmed before new flashing. You do not need to reflash or change VIA JSON files if your keyboard is working.
 
 ### Q: Which firmware should I use?
 

@@ -4,15 +4,27 @@ This document describes the origin of the ENCHDASH hardware design, modification
 
 ---
 
-## Original Design: ErgoDash by omkbd
+## Evidence Classification
 
-ENCHDASH is derived from **ErgoDash**, an open-source split ergonomic keyboard designed by **omkbd** and released in 2018.
+This attribution is structured by evidence class:
+
+1. **Repository evidence**: values and source files directly visible in the current repository (QMK source, KiCad file presence, info.json metadata).
+2. **Owner/hardware evidence required**: physical PCB characteristics, routing, mechanical fit, sold-unit revision, ERC/DRC results, silkscreen, and first-article validation. See `docs/evidence/kicad-owner-verification.md` for the owner-evidence checklist.
+3. **Historical attribution**: upstream projects (omkbd/ErgoDash, QMK) and their licenses, stated factually without implying endorsement.
+
+Physical hardware claims not grounded in repository source or owner-supplied evidence are marked as requiring owner verification.
+
+---
+
+## Historical Attribution: ErgoDash by omkbd
+
+ENCHDASH is derived from **ErgoDash**, an open-source split ergonomic keyboard designed by **omkbd**.
 
 - **Designer**: omkbd
 - **Original repository**: https://github.com/omkbd/ErgoDash
 - **License**: MIT License
 - **Copyright**: Copyright (c) 2018 omkbd
-- **Original release date**: 2018-06-07 (based on PCB title block in repository)
+- **Date in repository title block**: 2018-06-07 (`Hardware/PCB/Rev1.2/ergodash.kicad_pcb` line 1)
 
 The ErgoDash project provided:
 - Schematic design for a split ergonomic keyboard using Pro Micro controllers
@@ -24,79 +36,76 @@ ErgoDash itself was inspired by the ergonomic keyboard community and follows com
 
 ---
 
-## ENCHDASH Modifications
+## Repository Evidence: Firmware Source
 
-ENCHDASH adds the following modifications to the original ErgoDash Rev2 design:
+The following facts are verifiable from the QMK source trees in `FIRMWARE/QMK/ergodash/`, `FIRMWARE/QMK/ergodash_nowpm_mousekey/ergodash/`, `FIRMWARE/QMK/ergodash_wpm_nomousekey/ergodash/`, and `FIRMWARE/ergodash_mod_v3/`:
 
-### Hardware Changes
+### USB Device Descriptor (from `info.json`)
+- `keyboard_name`: "ErgoDash Hotswap By Positron"
+- `manufacturer`: "Positron Electronic"
+- USB VID:PID: `0x4D44:0x6061`
+- **Provenance status**: incomplete (per `FIRMWARE/manifest.json`). Source-to-binary identity not established; build provenance null.
 
-1. **Hotswap Socket Support**
-   - Added Kailh hotswap socket footprints to enable tool-free switch replacement
-   - Modified PCB routing to accommodate socket clearance and mechanical stress
+### Enabled Features (from `rules.mk`, `config.h`, keymaps)
+- **Bootloader**: `caterina` (Arduino-compatible)
+- **Split keyboard**: `SPLIT_KEYBOARD = yes`
+- **OLED**: `OLED_ENABLE = yes`, driver SSD1306
+- **Encoder**: `ENCODER_ENABLE = yes`
+- **VIA**: `VIA_ENABLE = yes`
+- **RGB underglow**: `RGBLIGHT_ENABLE = yes` (firmware toggle; hardware routing not verified from firmware alone)
+- **NKRO**: `NKRO_ENABLE = yes`
 
-2. **Rotary Encoder Integration**
-   - Added rotary encoder footprints (1 per half)
-   - Routed encoder pins to available GPIO on Pro Micro (F4, B6 on master half)
-   - Modified firmware to support encoder input via QMK `ENCODER_ENABLE`
+### Pin Definitions (from `FIRMWARE/QMK/ergodash/rev1/config.h`)
+- **Matrix rows**: `D4, D7, E6, B4, B5, B0`
+- **Matrix columns**: `C6, F5, F6, F7, B1, B3, B2`
+- **Encoder pads**: `ENCODERS_PAD_A { F4 }`, `ENCODERS_PAD_B { B6 }`
+- **WS2812 data**: `D3`
+- **Split serial**: `SOFT_SERIAL_PIN D2`
 
-3. **OLED Display Support**
-   - Added 128×32 OLED module footprints and I²C routing (1 per half)
-   - Implemented split OLED firmware logic (master displays status, slave displays logo)
-   - OLED communicates via I²C on split keyboard serial line
-
-4. **USB Type-C Controller**
-   - Original design used Pro Micro with Mini-B USB
-   - ENCHDASH uses Arduino Pro Micro clones with USB Type-C connectors
-   - PCB footprint remains compatible with standard Pro Micro pinout
-
-5. **RGB Underglow Routing**
-   - Original ErgoDash had RGB support but not fully routed in all variants
-   - ENCHDASH ensures WS2812 data line (D3) and power routing for 24 LEDs (12 per half)
-
-6. **PCB Silkscreen and Markings**
-   - Modified title block to reflect ENCHDASH identity (to be applied per owner guide)
-   - Current repository PCB files retain original omkbd markings pending silkscreen update
-
-### Electrical Design Unchanged
-
-The following remain identical to the original ErgoDash:
-
-- Controller: ATmega32u4 via Arduino Pro Micro
-- Matrix wiring: 6 rows × 7 columns per half, diode direction COL2ROW
-- Communication: TRRS cable carrying serial data (SOFT_SERIAL_PIN D2) and power
-- Bootloader: Caterina (Arduino-compatible)
-- Split detection: USB presence detection on master half
-
-### Mechanical Design
-
-- **Switch layout**: Unchanged from ErgoDash (MX spacing, key positions)
-- **Mounting holes**: Unchanged
-- **Case design**: Custom 3D-printed case designed for ENCHDASH (not derived from omkbd's case files, if any existed)
-
----
-
-## Firmware Modifications
-
-ENCHDASH firmware is derived from:
-
-1. **QMK Firmware** (https://github.com/qmk/qmk_firmware) — GPL-2.0-or-later
-2. **omkbd's ErgoDash QMK integration** (part of the QMK repository) — GPL-2.0-or-later
-
-### Firmware Changes
-
-- Added encoder map definitions (`ENCODER_MAP_ENABLE`, `encoder_map[][]`)
+### Firmware Modifications
+- Added encoder map definitions (`encoder_map[][]`)
 - Implemented OLED rendering functions (`oled.c`) with custom graphics and status display
 - Modified `config.h` to define encoder pins, OLED settings, RGB configuration
 - Added `info.json` metadata for VIA compatibility
-- Modified USB device descriptor: `keyboard_name: ErgoDash Hotswap By Positron`, `manufacturer: Positron Electronic`
-- USB VID:PID remains `0x4D44:0x6061` (provenance under audit)
+- Modified USB device descriptor as shown above
 
-### Firmware Boundaries
+### Firmware Source and Licensing
+ENCHDASH firmware is derived from:
+1. **QMK Firmware** (https://github.com/qmk/qmk_firmware) — GPL-2.0-or-later
+2. **omkbd's ErgoDash QMK integration** (part of the QMK repository) — GPL-2.0-or-later
 
-- QMK core code: unmodified, used as-is from upstream
-- omkbd's ErgoDash keyboard implementation: used as a base, modified for ENCHDASH features
-- ENCHDASH-specific code: encoder handling, OLED rendering, feature toggles
-- All modifications retain GPL-2.0-or-later licensing and upstream copyright notices
+QMK core code is unmodified and used as-is from upstream. The omkbd ErgoDash keyboard implementation was used as a base and modified for ENCHDASH features. All modifications retain GPL-2.0-or-later licensing and upstream copyright notices.
+
+### OLED Bus Clarification
+The firmware enables QMK OLED support and split-display behavior. The current repository does not establish that the OLED electrical bus is the split serial transport; confirm the bus and routing from the KiCad schematic before making that claim.
+
+---
+
+## Owner/Hardware Evidence Required
+
+The following claims require owner-supplied evidence per `docs/evidence/kicad-owner-verification.md`:
+
+### Physical PCB Characteristics
+- **Hotswap sockets**: Kailh hotswap socket footprints present in KiCad files; physical population and routing integrity require owner verification (PCB inspection, first-article photo, or Gerber review).
+- **Encoder routing**: Encoder footprints present in KiCad files; electrical routing to F4/B6 and mechanical fit require schematic and Gerber verification.
+- **OLED routing**: OLED module footprints present in KiCad files; I²C bus routing, power distribution, and split-serial integration require schematic verification.
+- **USB Type-C**: Footprint compatibility with Pro Micro Type-C clones stated; verify connector pinout and mechanical fit from schematic and first-article.
+- **RGB underglow routing**: WS2812 data line (D3) and power routing for 24 LEDs (12 per half) stated; verify routing and LED count from schematic and Gerber.
+- **Switch layout preservation**: Claim that MX spacing and key positions match original ErgoDash requires side-by-side PCB comparison or owner attestation.
+- **Mounting holes**: Claim that mounting holes remain unchanged from original ErgoDash requires PCB comparison or owner attestation.
+- **Case ancestry**: Custom 3D-printed case stated as "not derived from omkbd's case files"; verify case model provenance and independence from any upstream case design.
+
+### PCB Title Block and Silkscreen
+- **Title block identity**: Modified title block to reflect ENCHDASH identity stated; current repository files retain original omkbd markings pending silkscreen update per `docs/SILKSCREEN-GUIDE.md`. Verify silkscreen changes from Gerber or first-article photo.
+
+### Electrical Design and Validation
+- **Matrix wiring**: 6 rows × 7 columns per half, diode direction COL2ROW stated; verify from schematic.
+- **Communication**: TRRS cable carrying serial data (SOFT_SERIAL_PIN D2) and power stated; verify TRRS pinout and routing from schematic.
+- **Split detection**: USB presence detection on master half stated; verify split detection circuit from schematic.
+- **ERC/DRC**: Electrical and design rule checks not recorded; run and document per owner-evidence checklist.
+
+### Sold Unit Revision
+- **"Rev2" claim**: The baseline attribution stated "modifications to the original ErgoDash Rev2 design." The repository KiCad files are in `Hardware/PCB/Rev1.2/`. Verify the sold unit's actual revision and its correspondence to repository files.
 
 ---
 
@@ -114,46 +123,35 @@ ENCHDASH (2024–2026)
   Modifier: Juarendra Ramadhani
   Commercial identity: Positron Electronic
   License: MIT (hardware), GPL-2.0-or-later (firmware)
-  Scope: Hotswap, encoder, OLED, Type-C, firmware modifications
+  Scope: Hotswap, encoder, OLED, Type-C, firmware modifications (per repository evidence and owner verification)
 ```
 
 ---
 
 ## Files Modified from Original ErgoDash
 
-### KiCad Hardware Files
-
-- `Hardware/PCB/Rev1.2/ergodash.kicad_pcb` — PCB layout (added encoder, OLED, hotswap footprints)
-- `Hardware/PCB/Rev1.2/ergodash.kicad_sch` — Schematic (added encoder, OLED routing)
+### KiCad Hardware Files (repository evidence: file presence and modification history)
+- `Hardware/PCB/Rev1.2/ergodash.kicad_pcb` — PCB layout (encoder, OLED, hotswap footprints visible in file; routing and correctness require schematic verification)
+- `Hardware/PCB/Rev1.2/ergodash.kicad_sch` — Schematic (encoder, OLED routing claimed; verify from schematic inspection)
 - `Hardware/PCB/Rev1.2/ergodash.kicad_pro` — Project settings
 - Title block metadata (to be updated per `docs/SILKSCREEN-GUIDE.md`)
 
 ### Firmware Files (QMK-derived)
-
 All files in `FIRMWARE/QMK/ergodash*/` are modifications of the upstream omkbd ErgoDash QMK implementation:
-
-- `config.h` — added encoder, OLED, RGB settings
+- `config.h` — encoder, OLED, RGB settings (values listed in Repository Evidence section)
 - `rules.mk` — enabled encoder, OLED features
 - `keymap.c` — modified keymaps, added encoder map
 - `oled.c` — new file, OLED rendering logic
-- `info.json` — VIA metadata
-
-### Files Unchanged from Original
-
-- Matrix pin definitions (rows, columns)
-- Bootloader selection
-- Split keyboard communication protocol
-- Core electrical design
+- `info.json` — VIA metadata and USB descriptor
 
 ---
 
 ## Third-Party Components Used
 
 ENCHDASH hardware files include third-party footprint libraries and 3D models. See [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) for:
-
 - ProMicro.pretty (MIT, Biacco42)
 - keebs.pretty (CERN OHL v1.2, egladman)
-- Other footprint libraries and 3D models
+- Other footprint libraries and 3D models (provenance incomplete)
 
 These components are not part of the original ErgoDash distribution and were added during ENCHDASH development.
 
@@ -162,10 +160,9 @@ These components are not part of the original ErgoDash distribution and were add
 ## Design Philosophy
 
 ENCHDASH is a **compatibility-preserving enhancement** of ErgoDash:
-
-- Maintains original matrix layout and electrical design
-- Adds user-requested features (hotswap, encoder, OLED) without breaking core design
-- Keeps Pro Micro pinout compatibility for easy controller replacement
+- Maintains original matrix layout and electrical design (subject to schematic verification)
+- Adds user-requested features (hotswap, encoder, OLED) without breaking core design (subject to owner verification)
+- Keeps Pro Micro pinout compatibility for easy controller replacement (subject to schematic verification)
 - Respects original design intent while extending functionality
 
 This approach ensures that ENCHDASH remains recognizable as an ErgoDash derivative while adding practical improvements for modern keyboard users.
