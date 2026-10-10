@@ -21,7 +21,7 @@ Each component is recorded with:
 | ErgoDash PCB design | `Hardware/PCB/Rev1.2/ergodash.*` | https://github.com/omkbd/ErgoDash | MIT (omkbd, 2018) — local license `LICENSES/MIT-ErgoDash.txt` | Active (modified) | Repository evidence: KiCad files present; modification history in git; title block date 2018-06-07 |
 | ProMicro footprint (`sofle:ArduinoProMicro-ZigZag-DoubleSided`) | embedded in `ergodash.kicad_pcb` | SofleKeyboard footprint lib | MIT (Josef Adamcik, 2019) — local license `SofleKeyboard-footprint.pretty/LICENSE` | Active (1 instance) | Repository evidence: footprint embedded in PCB; provided via SofleKeyboard lib |
 | SofleKeyboard footprints | `Hardware/PCB/Rev1.2/SofleKeyboard-footprint.pretty/` | https://github.com/josefadamcik/SofleKeyboard | MIT (Josef Adamcik, 2019) — local license `SofleKeyboard-footprint.pretty/LICENSE` | Active (primary layout lib, 92 instances) | Repository evidence: footprint usage audit of `ergodash.kicad_pcb` (2026-10-10); upstream MIT confirmed |
-| SK6812 LED footprint (`prettylib:SK6812_mini_e_flipable`) | embedded in `ergodash.kicad_pcb` | yaemk-split-kb (https://github.com/KarlK90/yaemk-split-kb) | GPL-3.0 upstream (lib source not vendored in repo) | Active (12 instances) | Owner action: generic SK6812 footprint; source lib not present locally. Replace with a clearly-licensed SK6812 footprint or vendor the yaemk GPL-3.0 lib + license before asserting full compliance |
+| SK6812 LED footprint (`prettylib:SK6812_mini_e_flipable`, fab value `YAEMK_SK6812MINI-E`) | embedded in `ergodash.kicad_pcb` | Pad geometry per SK6812MINI-E manufacturer datasheet; footprint distributed via yaemk-split-kb (https://github.com/KarlK90/yaemk-split-kb, GPL-3.0) | Functional/factual PCB geometry — not treated as a copyrightable creative work (see Compliance Notes) | Active (12 instances) | Repository evidence: footprint usage audit (2026-10-10); geometry matches SK6812MINI-E datasheet pad/slot dimensions |
 | Project-local footprints (`library:`, `Rev1:` — MX_ALPS, conn3, hole, gundam, qr-positron) | embedded in `ergodash.kicad_pcb`; `gundam.kicad_mod`, `qr-positron.kicad_mod` | Owner / ErgoDash-derived | Owner-created or ErgoDash-derived (MIT) | Active (15 instances) | Repository evidence: footprint usage audit (2026-10-10); owner/ErgoDash origin |
 
 **Footprint usage audit (2026-10-10)**: `ergodash.kicad_pcb` has 119 footprint instances. Only the libraries listed above are referenced. The following vendored libraries had **zero references** and were removed: `Keebio-Parts.pretty`, `keyboard_parts.pretty-master`, `keebs.pretty-master` (CERN OHL v1.2), `ProMicro.pretty-master`. Removing their source folders does not alter the PCB — KiCad embeds footprint geometry directly in `.kicad_pcb`.
@@ -78,10 +78,15 @@ Modified firmware source is distributed alongside binaries. File-level copyright
 ### MIT (ErgoDash hardware, SofleKeyboard footprints)
 Original copyright notices are retained. ErgoDash attribution is provided in `docs/HARDWARE-ATTRIBUTION.md` and KiCad project metadata. The SofleKeyboard footprint library (primary layout lib, 92 instances) carries its upstream MIT license at `SofleKeyboard-footprint.pretty/LICENSE`.
 
+### SK6812 LED footprint (`prettylib:SK6812_mini_e_flipable`)
+This footprint originates from the yaemk-split-kb project (GPL-3.0). Only the footprint geometry is used, and it is embedded directly in `ergodash.kicad_pcb` (the `prettylib` source folder is not vendored). The pad layout, drill, and board-slot dimensions follow the SK6812MINI-E manufacturer datasheet — they describe how to physically mount a specific commodity LED part, which is functional/factual information rather than a copyrightable creative expression. On that basis the geometry is treated as not independently copyright-restricted, and no GPL-3.0 obligation is propagated to the PCB. The upstream project and its GPL-3.0 license are nonetheless credited here.
+
+This is a deliberate owner-accepted position (recorded 2026-10-10), not a verified legal opinion. **Upgrade path**: if a stricter guarantee is required, replace this footprint with one from a permissively-licensed library (e.g. KiCad's official `LED_SMD` SK6812 footprint) and regenerate gerbers, or vendor the yaemk-split-kb library together with its GPL-3.0 license text.
+
 ### Components with Incomplete Provenance
 Components marked "not independently established" for license or usage status require further investigation to determine their upstream source, license, and whether they are actively used in the current PCB design. Until provenance is confirmed, these components cannot be claimed as properly licensed for distribution.
 
-**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance. Remaining open items blocking a clean full-compliance claim: the `prettylib:SK6812_mini_e_flipable` LED footprint (upstream yaemk-split-kb GPL-3.0; source lib not vendored), 3D models (`3d/`), VIA JSON licensing, and media authorship. These gaps must be resolved before asserting full compliance.
+**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance (SofleKeyboard MIT; SK6812 treated as datasheet geometry per the note above). Remaining open items blocking a clean full-compliance claim: 3D models (`3d/`), VIA JSON licensing, and media authorship. These gaps must be resolved before asserting full compliance.
 
 ---
 
@@ -89,7 +94,7 @@ Components marked "not independently established" for license or usage status re
 
 The footprint usage audit was performed on 2026-10-10 by parsing `(footprint "lib:name"` references in `Hardware/PCB/Rev1.2/ergodash.kicad_pcb` (119 total instances) and cross-referencing against vendored library directories. Results are recorded in the Hardware Components table above. Four zero-reference libraries were removed.
 
-**Still pending**: 3D model (`3d/`) provenance and usage, and the SK6812 LED footprint source license.
+**Still pending**: 3D model (`3d/`) provenance and usage.
 
 ---
 
