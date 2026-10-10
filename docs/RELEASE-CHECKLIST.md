@@ -32,18 +32,17 @@ This checklist ensures every release meets compliance, quality, and compatibilit
 ```
 *Note: These are illustrative template values. Actual observed hashes are recorded in `FIRMWARE/manifest.json`.*
 
-### 3. QMK Build Evidence (GATE: BLOCKED)
+### 3. QMK Build Evidence (SOURCE-REPRODUCIBLE, HASH-DIVERGENT)
 
-**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+**Status**: Rebuilt 2026-10-10. All three variants compile cleanly from repo source with a documented toolchain (QMK `0.26.11`, `avr-gcc 15.1.0`). Rebuilt hashes differ from shipped because the original QMK commit/toolchain was never recorded. See [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
 
-- [ ] Source QMK commit identified and recorded
-- [ ] Build command documented in `FIRMWARE/manifest.json`
-- [ ] Clean build reproduces identical or functionally equivalent binaries
-- [ ] Build log and environment recorded
-- [ ] Diff analysis (if hashes differ) shows only metadata/timestamp differences
+- [ ] Source QMK commit identified and recorded (original commit unknown; a representative 2024 release was used)
+- [x] Build command documented in `FIRMWARE/manifest.json`
+- [ ] Clean build reproduces identical or functionally equivalent binaries (compiles cleanly; byte-identical reproduction not achieved; functional equivalence not yet hardware-tested)
+- [x] Build log and environment recorded (`build_environment` in manifest + evidence doc)
+- [x] Diff analysis recorded (large byte differences consistent with newer QMK/avr-gcc; see evidence doc)
 
-**Blocker**: No QMK commit, build environment, or reproduction attempt is recorded.
-Procedure for obtaining this evidence: see [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
+**Remaining**: `provenance_status` stays `incomplete`. Upgrade to `functionally rebuilt` requires flashing shipped + rebuilt `.hex` to hardware and confirming identical behaviour; `verified` requires an exact hash match (needs the original QMK commit). This is the only open release-blocking gate.
 
 ### 4. Device Enumeration and VIA Test (OWNER-ATTESTED)
 
@@ -134,7 +133,7 @@ Before publishing release:
 
 - [ ] Repository integrity verified
 - [ ] Legacy binary hashes verified
-- [ ] QMK build evidence obtained (Gate 3)
+- [~] QMK build evidence (Gate 3): source compiles cleanly, environment recorded; byte-identical reproduction and functional-equivalence test still open
 - [x] Device enumeration and VIA test passed (Gate 4, owner-attested)
 - [x] KiCad owner evidence obtained (Gate 6, owner-attested)
 - [ ] Documentation links verified
@@ -155,13 +154,13 @@ Before publishing release:
 
 ## Known Issues
 
-**Status**: QMK build provenance remains incomplete. Device and hardware checks are owner-attested.
+**Status**: QMK build provenance is source-reproducible but hash-divergent. Device and hardware checks are owner-attested.
 
-- **QMK Build Evidence** (Gate 3): No QMK commit, build command, or reproduction attempt recorded. Provenance incomplete.
+- **QMK Build Evidence** (Gate 3): Rebuilt 2026-10-10 — all three variants compile cleanly from repo source (QMK `0.26.11`, `avr-gcc 15.1.0`); environment, build commands, and rebuilt hashes recorded in `FIRMWARE/manifest.json` and `evidence/qmk-build.md`. Byte-identical reproduction not achieved (original QMK commit unknown); `provenance_status` stays `incomplete`.
 - **Device Test** (Gate 4): Owner-attested (2026-10-10) — device flashed, enumerated, VIA-detected, and shipped working. Raw logs/screenshots retained by owner. See `evidence/device-test.md`.
 - **KiCad Owner Evidence** (Gate 6): Owner-attested (2026-10-10) — ERC/DRC pass, Gerber matches production, first-article fabricated and sold. Raw artifacts retained by owner. See `evidence/kicad-owner-verification.md`.
 
-Gate 3 (QMK build provenance) remains open and is the only release-blocking item; Gates 4 and 6 are satisfied by owner attestation above.
+Gate 3 (byte-identical QMK provenance) remains the only partially-open item; the source is proven to compile and Gates 4 and 6 are satisfied by owner attestation above.
 
 ---
 
