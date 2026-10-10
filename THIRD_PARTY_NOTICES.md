@@ -41,10 +41,10 @@ Each component is recorded with:
 
 | Component | Repository Path | Claimed Source | License Status | Usage Status | Evidence |
 |-----------|----------------|----------------|----------------|--------------|----------|
-| Hardware photos | `DOC/HARDWARE/*.{png,jpeg}` | Original photography by Juarendra Ramadhani | Owner attribution not independently verified | Active | Owner verification required: no independent evidence of authorship or licensing; treat as owner-supplied content |
+| Hardware photos | `DOC/HARDWARE/*.{png,jpeg}` | Original photography by Juarendra Ramadhani | MIT (owner-licensed) — Copyright (c) 2024-2026 Juarendra Ramadhani; see `LICENSES/MIT-ENCHDASH.txt` | Active | Owner-confirmed authorship (2026-10-10) |
 | Schematic PDF | `Hardware/ErgoDash_Schematic.pdf` | Exported from modified KiCad files | Derived from MIT-licensed ErgoDash (omkbd, 2018) | Active | Repository evidence: generated from modified source; derivative work under MIT |
-| Tutorial video | `DOC/tutorial_load_json_file.mov` | Original content by Juarendra Ramadhani | Owner attribution not independently verified | Active | Owner verification required: no independent evidence of authorship or licensing; treat as owner-supplied content |
-| User manuals | `DOC/*.pdf` | Original documentation by Juarendra Ramadhani | Owner attribution not independently verified | Active | Owner verification required: no independent evidence of authorship or licensing; treat as owner-supplied content |
+| Tutorial video | `DOC/tutorial_load_json_file.mov` | Original content by Juarendra Ramadhani | MIT (owner-licensed) — Copyright (c) 2024-2026 Juarendra Ramadhani; see `LICENSES/MIT-ENCHDASH.txt` | Active | Owner-confirmed authorship (2026-10-10) |
+| User manuals | `DOC/*.pdf` | Original documentation by Juarendra Ramadhani | MIT (owner-licensed) — Copyright (c) 2024-2026 Juarendra Ramadhani; see `LICENSES/MIT-ENCHDASH.txt` | Active | Owner-confirmed authorship (2026-10-10) |
 
 ---
 
@@ -63,7 +63,7 @@ Each component is recorded with:
 
 | Component | Repository Path | Claimed Source | License Status | Usage Status | Evidence |
 |-----------|----------------|----------------|----------------|--------------|----------|
-| VIA JSON definitions | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` (canonical), `ErgoDash_4key_mod_positron_elektronik.json` (legacy non-V3) | Based on VIA specification | Not independently established | Active | Owner verification required: VIA JSON files are configuration data; licensing not established; do not assume GPL merely because firmware is GPL |
+| VIA JSON definitions | `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json` (canonical), `ErgoDash_4key_mod_positron_elektronik.json` (legacy non-V3) | Original VIA configuration by Juarendra Ramadhani (based on the VIA definition specification) | MIT (owner-licensed) — Copyright (c) 2024-2026 Juarendra Ramadhani; see `LICENSES/MIT-ENCHDASH.txt` | Active | Owner-confirmed authorship (2026-10-10): VIA JSON is owner-created configuration data; the VIA schema itself imposes no license on definitions |
 
 ---
 
@@ -71,6 +71,7 @@ Each component is recorded with:
 
 The following license files are present and committed:
 - `LICENSES/MIT-ErgoDash.txt` — Original ErgoDash MIT License (omkbd, 2018)
+- `LICENSES/MIT-ENCHDASH.txt` — MIT License for owner-created works (Juarendra Ramadhani, 2024-2026): VIA JSON, documentation, and media
 - `LICENSES/GPL-2.0-or-later.txt` — GNU GPL v2 or later (from QMK)
 - `Hardware/PCB/Rev1.2/SofleKeyboard-footprint.pretty/LICENSE` — MIT License (Josef Adamcik, 2019)
 
@@ -100,7 +101,7 @@ The commodity-part STEP models in `Hardware/PCB/Rev1.2/3d/` are used solely by K
 ### Components with Incomplete Provenance
 Components marked "not independently established" for license or usage status require further investigation to determine their upstream source, license, and whether they are actively used in the current PCB design. Until provenance is confirmed, these components cannot be claimed as properly licensed for distribution.
 
-**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance (SofleKeyboard MIT; SK6812 treated as datasheet geometry). 3D models are documented as visualization-only and excluded from manufacturing output. Remaining open items blocking a clean full-compliance claim: VIA JSON licensing and media authorship.
+**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance (SofleKeyboard MIT; SK6812 treated as datasheet geometry). 3D models are documented as visualization-only and excluded from manufacturing output. VIA JSON and owner-created media are owner-confirmed and MIT-licensed (`LICENSES/MIT-ENCHDASH.txt`). Remaining items are owner/toolchain/hardware-gated and not documentation gaps: QMK build provenance (`FIRMWARE/manifest.json`), USB/VIA device testing, KiCad ERC/DRC/gerber evidence, and own VID/PID allocation.
 
 ---
 
@@ -108,7 +109,7 @@ Components marked "not independently established" for license or usage status re
 
 The footprint usage audit was performed on 2026-10-10 by parsing `(footprint "lib:name"` references in `Hardware/PCB/Rev1.2/ergodash.kicad_pcb` (119 total instances) and cross-referencing against vendored library directories. Results are recorded in the Hardware Components table above. Four zero-reference libraries were removed.
 
-**Still pending**: VIA JSON licensing and media authorship (owner verification).
+**Resolved (2026-10-10)**: VIA JSON licensing (MIT, owner) and media authorship (MIT, owner).
 
 ---
 

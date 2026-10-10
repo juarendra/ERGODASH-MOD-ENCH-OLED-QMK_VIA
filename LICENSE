@@ -17,9 +17,10 @@ replace or override notices embedded in individual files.
    Remain under their respective licenses. See THIRD_PARTY_NOTICES.md and
    license files stored beside those assets.
 
-4. Owner-created documentation and media
+4. Owner-created VIA JSON, documentation, and media
    Copyright (c) 2024-2026 Juarendra Ramadhani unless another notice is
-   present. No trademark or endorsement rights are granted by this index.
+   present. Licensed under the MIT License; see LICENSES/MIT-ENCHDASH.txt.
+   No trademark or endorsement rights are granted by this index.
 
 The product is an independent derivative of ErgoDash. It is not an official
 ErgoDash revision and is not maintained, approved, or endorsed by omkbd.

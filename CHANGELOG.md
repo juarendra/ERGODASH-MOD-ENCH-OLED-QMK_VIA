@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Untracked stale `tools/__pycache__/*.pyc` (now covered by `.gitignore`; stops repeated working-tree churn)
 - Bounded residual "Existing units remain supported" wording in `README.md` to the repo-provable legacy-availability statement
 - Removed two redundant VIA JSON files in `FIRMWARE/`: `ErgoDash_4key_mod_positron_elektronik.json` (byte-identical duplicate of the root legacy file) and `ErgoDash_4key_V3_mod_positron_elektronik.json` (older V3 copy lacking the rgblight menu, superseded by the root canonical). Canonical VIA JSON is `NEW_ErgoDash_4key_V3_mod_positron_elektronik.json`; file contents unchanged, only duplicates removed. Clarified canonical vs legacy in `README.md`, `FIRMWARE/README.md`, `THIRD_PARTY_NOTICES.md`
+- Licensed owner-created works under MIT: added `LICENSES/MIT-ENCHDASH.txt` (Copyright (c) 2024-2026 Juarendra Ramadhani) covering VIA JSON definitions, documentation, and media. Resolved VIA JSON licensing and media authorship gaps in `THIRD_PARTY_NOTICES.md` (owner-confirmed authorship); linked from the root `LICENSE` index
 
 ### Deprecated
 - Legacy product name `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remains supported but will appear only in legacy documentation
