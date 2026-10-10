@@ -1,0 +1,14 @@
+# Treat binary assets as binary (no EOL conversion, no diff/whitespace checks)
+*.pdf binary
+*.mov binary
+*.hex binary
+*.png binary
+*.jpeg binary
+*.jpg binary
+*.docx binary
+*.rar binary
+*.step binary
+*.stp binary
+*.STEP binary
+*.STP binary
+*.wrl binary

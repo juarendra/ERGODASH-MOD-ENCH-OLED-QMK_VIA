@@ -18,6 +18,7 @@ Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Legacy firmware and VIA J
 ## Table of Contents
 
 * [Product Specification](#product-specification)
+* [Architecture](#architecture)
 * [Hardware Revisions](#hardware-revisions)
 * [Firmware](#firmware)
 * [VIA Configuration](#via-configuration)
@@ -45,6 +46,91 @@ Previously sold as **ERGODASH-MOD-ENCH-OLED-QMK_VIA**. Legacy firmware and VIA J
   - 4 layers
 - **Case**: 3D-printed enclosure
 - **Communication**: TRRS cable between halves
+
+---
+
+## Architecture
+
+### Split topology & data flow
+
+The two halves are connected by a single TRRS cable. The master half (whichever
+side holds the USB connection) talks to the host over USB and drives the status
+OLED; the slave half is scanned over the serial link and shows a static logo.
+
+```mermaid
+flowchart LR
+    Host["Host PC\n(USB Type-C)"]
+    subgraph Master["Master half"]
+        MC["ATmega32u4"]
+        MM["Matrix 6x7"]
+        ME["Encoder"]
+        MO["OLED: layer / caps"]
+        ML["RGB 12x WS2812"]
+    end
+    subgraph Slave["Slave half"]
+        SC["ATmega32u4"]
+        SM["Matrix 6x7"]
+        SE["Encoder"]
+        SO["OLED: logo"]
+        SL["RGB 12x WS2812"]
+    end
+    Host <-->|USB| MC
+    MC <-->|"SOFT_SERIAL (D2) over TRRS"| SC
+    MM --> MC
+    ME --> MC
+    MC --> MO
+    MC --> ML
+    SM --> SC
+    SE --> SC
+    SC --> SO
+    SC --> SL
+```
+
+### Layer model
+
+Four layers. `MO()` holds a momentary layer; the `CYCLE` custom keycode rotates
+the base layers (QWERTY ↔ COLEMAK). LOWER and RAISE are reached by holding their
+respective keys.
+
+```mermaid
+stateDiagram-v2
+    [*] --> QWERTY
+    QWERTY --> COLEMAK: CYCLE
+    COLEMAK --> QWERTY: CYCLE
+    QWERTY --> LOWER: hold MO(LOWER)
+    LOWER --> QWERTY: release
+    QWERTY --> RAISE: hold MO(RAISE)
+    RAISE --> QWERTY: release
+```
+
+### Firmware feature map
+
+```mermaid
+flowchart TD
+    QMK["QMK core (GPL-2.0)"] --> VIA["VIA support\n(runtime remap)"]
+    QMK --> SPLIT["SPLIT_KEYBOARD"]
+    QMK --> ENC["ENCODER + ENCODER_MAP"]
+    QMK --> RGBL["RGBLIGHT (WS2812, D3)"]
+    QMK --> OLEDF["OLED (128x32, 270 deg)"]
+    QMK --> NKRO["NKRO + EXTRAKEY"]
+    VIA --> JSON["VIA JSON definition"]
+```
+
+### Keymap → VIA JSON → firmware mapping
+
+Each shipped firmware variant pairs with a specific VIA definition. Load the
+matching JSON or VIA will not map the keys correctly.
+
+```mermaid
+flowchart LR
+    SRC["FIRMWARE/QMK/* keymap.c"] --> HEX["Compiled .hex"]
+    HEX --> V1["ergodash_rev1_via.hex"]
+    HEX --> V2["omkbd_ergodash_rev1_nowpmmousekey.hex"]
+    HEX --> V3["omkbd_ergodash_rev1_wpmnomousekey.hex"]
+    V1 -. load .-> J1["ErgoDash_4key_mod_positron_elektronik.json\n(legacy non-V3)"]
+    V2 -. load .-> J2["NEW_ErgoDash_4key_V3_mod_positron_elektronik.json\n(canonical)"]
+    V3 -. load .-> J2
+```
 
 ---
 

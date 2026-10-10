@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - QMK build evidence placeholder (`docs/evidence/qmk-build.md`)
 - SofleKeyboard footprint library MIT license (`Hardware/PCB/Rev1.2/SofleKeyboard-footprint.pretty/LICENSE`, Josef Adamcik 2019)
 - `.gitignore` (excludes `__pycache__/`, `.cooper/`)
+- Branded user manuals regenerated as Positron Electronic / ENCHDASH documents (`DOC/*.pdf`) via `tools/generate_manuals.py`; reference-corrected to the canonical VIA JSON and the GitHub repo
+- Architecture section with four Mermaid diagrams in `README.md` (split topology/data flow, layer state model, firmware feature map, keymap→VIA JSON→firmware mapping)
+- `.gitattributes` marking binary assets (PDF, MOV, HEX, images, STEP, etc.) to prevent EOL conversion and spurious whitespace diffs
 
 ### Changed
 - **Product name**: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH` (primary identity)
