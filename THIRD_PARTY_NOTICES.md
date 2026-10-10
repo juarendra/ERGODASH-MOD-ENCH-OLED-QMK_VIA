@@ -48,6 +48,17 @@ Each component is recorded with:
 
 ---
 
+## 3D Models (KiCad visualization only)
+
+3D models are referenced by KiCad footprints for the board's 3D viewer. They are **not part of the manufacturing output**: gerbers (`gerber/`, `gerber_1/`) contain only 2D copper/mask/silkscreen/drill data, and the models are not present in the shipped physical product or firmware. The PCB can be fabricated with the models absent.
+
+| Component | Repository Path | Claimed Source | License Status | Usage Status | Evidence |
+|-----------|----------------|----------------|----------------|--------------|----------|
+| KiCad standard 3D models (`R0603.wrl`, `R_1206`, resistor shapes) | `${KISYS3DMOD}` (not vendored) | KiCad official 3D model library | KiCad library license (permissive) | Visualization only (15 refs) | Repository evidence: referenced via `${KISYS3DMOD}`; shipped with KiCad |
+| Commodity part STEP models (`Kailh Polia.step`, `Kailh Hotswap MX v22.step`, `EC11_Rotary_Encoder_Switched.step`, `ARDUINO PRO MICRO.STEP`, `OLED 128 x 32 Display Assembly.step`, `PJ320A.STEP`, `SOD-123.step`, `TactileButton(6x3,5mm)_SMD.stp`) | `Hardware/PCB/Rev1.2/3d/` | Vendor/community CAD models of commodity parts | Vendor provenance not independently verified | Visualization only (~61 refs) | Owner-accepted (2026-10-10): models depict commodity parts, used for KiCad 3D view only, excluded from manufacturing output and shipped product |
+
+---
+
 ## VIA Configuration
 
 | Component | Repository Path | Claimed Source | License Status | Usage Status | Evidence |
@@ -83,10 +94,13 @@ This footprint originates from the yaemk-split-kb project (GPL-3.0). Only the fo
 
 This is a deliberate owner-accepted position (recorded 2026-10-10), not a verified legal opinion. **Upgrade path**: if a stricter guarantee is required, replace this footprint with one from a permissively-licensed library (e.g. KiCad's official `LED_SMD` SK6812 footprint) and regenerate gerbers, or vendor the yaemk-split-kb library together with its GPL-3.0 license text.
 
+### 3D models (visualization only)
+The commodity-part STEP models in `Hardware/PCB/Rev1.2/3d/` are used solely by KiCad's 3D viewer. They are excluded from the manufacturing output (gerbers are 2D only) and from the shipped physical product. On that basis their vendor provenance is treated as non-blocking for distribution of the board and firmware; it is recorded here as an owner-accepted position (2026-10-10), not a verified legal opinion. KiCad's own standard 3D models (`${KISYS3DMOD}`) ship under the KiCad library license. **Upgrade path**: remove `3d/` entirely (zero impact on gerbers/PCB/firmware/product; only KiCad 3D preview loses the part models), or replace with models carrying explicit redistribution licenses.
+
 ### Components with Incomplete Provenance
 Components marked "not independently established" for license or usage status require further investigation to determine their upstream source, license, and whether they are actively used in the current PCB design. Until provenance is confirmed, these components cannot be claimed as properly licensed for distribution.
 
-**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance (SofleKeyboard MIT; SK6812 treated as datasheet geometry per the note above). Remaining open items blocking a clean full-compliance claim: 3D models (`3d/`), VIA JSON licensing, and media authorship. These gaps must be resolved before asserting full compliance.
+**Compliance status**: The 2026-10-10 footprint usage audit resolved the hardware footprint provenance (SofleKeyboard MIT; SK6812 treated as datasheet geometry). 3D models are documented as visualization-only and excluded from manufacturing output. Remaining open items blocking a clean full-compliance claim: VIA JSON licensing and media authorship.
 
 ---
 
@@ -94,7 +108,7 @@ Components marked "not independently established" for license or usage status re
 
 The footprint usage audit was performed on 2026-10-10 by parsing `(footprint "lib:name"` references in `Hardware/PCB/Rev1.2/ergodash.kicad_pcb` (119 total instances) and cross-referencing against vendored library directories. Results are recorded in the Hardware Components table above. Four zero-reference libraries were removed.
 
-**Still pending**: 3D model (`3d/`) provenance and usage.
+**Still pending**: VIA JSON licensing and media authorship (owner verification).
 
 ---
 

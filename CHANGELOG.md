@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed 4 unused vendored footprint libraries with zero PCB references (`Keebio-Parts.pretty`, `keyboard_parts.pretty-master`, `keebs.pretty-master`, `ProMicro.pretty-master`); PCB unchanged (footprint geometry embedded in `.kicad_pcb`)
 - `THIRD_PARTY_NOTICES.md` updated with 2026-10-10 footprint usage audit (119 instances; SofleKeyboard MIT confirmed; SK6812/3D/media gaps documented)
 - Documented SK6812 LED footprint (`prettylib:SK6812_mini_e_flipable`) as datasheet-derived PCB geometry (not a copyrightable work); upstream yaemk-split-kb GPL-3.0 credited, no copyleft propagated — owner-accepted position with upgrade path in `THIRD_PARTY_NOTICES.md`
+- Documented 3D models (`Hardware/PCB/Rev1.2/3d/`) as KiCad visualization-only, excluded from manufacturing output and shipped product; vendor provenance recorded as non-blocking owner-accepted position with removal upgrade path in `THIRD_PARTY_NOTICES.md`
 
 ### Deprecated
 - Legacy product name `ERGODASH-MOD-ENCH-OLED-QMK_VIA` remains supported but will appear only in legacy documentation
