@@ -1,8 +1,10 @@
 # ENCHDASH QMK Build Evidence
 
 **Status**: incomplete. The repository records shipped binary hashes and source
-mappings, but no QMK base commit, reproducible build, USB enumeration, VIA
-device test, or hardware smoke test has been evidenced here.
+mappings, but no QMK base commit or reproducible build has been evidenced here.
+Physical device function (USB enumeration, VIA detection, smoke test) is
+owner-attested separately in `device-test.md`; build provenance remains the
+open item.
 
 **Date**: 2026-10-08
 **Purpose**: Document reproducible QMK build process for legacy firmware validation

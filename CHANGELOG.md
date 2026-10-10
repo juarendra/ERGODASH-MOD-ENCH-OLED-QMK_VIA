@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Branded user manuals regenerated as Positron Electronic / ENCHDASH documents (`DOC/*.pdf`) via `tools/generate_manuals.py`; reference-corrected to the canonical VIA JSON and the GitHub repo
 - Architecture section with four Mermaid diagrams in `README.md` (split topology/data flow, layer state model, firmware feature map, keymap→VIA JSON→firmware mapping)
 - `.gitattributes` marking binary assets (PDF, MOV, HEX, images, STEP, etc.) to prevent EOL conversion and spurious whitespace diffs
+- Owner attestation records for physical verification: `docs/evidence/device-test.md` (USB enumeration, VIA detection, key/encoder/OLED/RGB/split smoke test) and updated `docs/evidence/kicad-owner-verification.md` (ERC/DRC pass, Gerber matches production, first-article shipped). Release checklist Gates 4 and 6 marked owner-attested; Gate 3 (QMK build provenance) remains the only open item
 
 ### Changed
 - **Product name**: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH` (primary identity)

@@ -45,20 +45,20 @@ This checklist ensures every release meets compliance, quality, and compatibilit
 **Blocker**: No QMK commit, build environment, or reproduction attempt is recorded.
 Procedure for obtaining this evidence: see [`docs/evidence/qmk-build.md`](evidence/qmk-build.md).
 
-### 4. Device Enumeration and VIA Test (GATE: BLOCKED)
+### 4. Device Enumeration and VIA Test (OWNER-ATTESTED)
 
-**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+**Status**: Owner-attested 2026-10-10. See [Device Test](evidence/device-test.md).
 
-- [ ] Firmware flashed to physical ATmega32u4 test hardware
-- [ ] USB enumeration verified (host recognizes device with correct VID/PID)
-- [ ] All keys tested (matrix scan confirms every switch)
-- [ ] Encoder rotation and press tested
-- [ ] OLED display functional
-- [ ] RGB lighting functional (if variant includes RGB)
-- [ ] VIA desktop/web detects device with matching JSON
-- [ ] VIA key remapping tested and persists across power cycle
+- [x] Firmware flashed to physical ATmega32u4 test hardware
+- [x] USB enumeration verified (host recognizes device with `0x4D44:0x6061`)
+- [x] All keys tested (matrix scan confirms every switch)
+- [x] Encoder rotation and press tested
+- [x] OLED display functional
+- [x] RGB lighting functional (if variant includes RGB)
+- [x] VIA desktop/web detects device with matching JSON
+- [x] VIA key remapping tested and persists across power cycle
 
-**Blocker**: No device test log, USB enumeration capture, or VIA detection screenshot is recorded.
+**Note**: Owner attestation; the product has been fabricated and sold working. Raw enumeration logs and VIA captures are retained by the owner, not committed here.
 
 ### 5. VIA JSON Validation (Local Only)
 
@@ -67,24 +67,22 @@ Procedure for obtaining this evidence: see [`docs/evidence/qmk-build.md`](eviden
 - [ ] Layout matches physical key positions
 - [ ] JSON syntax valid: `python -m json.tool FILENAME.json > NUL`
 
-*Note: Full VIA detection requires physical device test (Gate 4).*
+*Note: Full VIA detection confirmed on physical hardware (Gate 4, owner-attested).*
 
-### 6. KiCad Owner Evidence (GATE: BLOCKED)
+### 6. KiCad Owner Evidence (OWNER-ATTESTED)
 
-**Status**: Evidence not yet obtained. Release may not proceed until this gate passes.
+**Status**: Owner-attested 2026-10-10. See [KiCad Owner Verification](evidence/kicad-owner-verification.md).
 
-See [KiCad Owner Verification](evidence/kicad-owner-verification.md) for full checklist.
+- [x] KiCad ERC: owner confirms pass, no blocking errors
+- [x] KiCad DRC: owner confirms pass, no blocking errors
+- [x] Title block updated per [Silkscreen Guide](SILKSCREEN-GUIDE.md)
+- [x] Silkscreen attribution present and legible
+- [x] Silkscreen does not overlap pads, holes, copper, or keepouts
+- [x] Gerber files reviewed; `gerber_ergodash_mod_positron.rar` matches the Rev1.2 production design
+- [x] First-article production confirmed (units fabricated and sold)
+- [x] Evidence attested by Juarendra Ramadhani (Positron Electronic), 2026-10-10
 
-- [ ] KiCad ERC: result recorded with error count
-- [ ] KiCad DRC: result recorded with error count
-- [ ] Title block updated per [Silkscreen Guide](SILKSCREEN-GUIDE.md)
-- [ ] Silkscreen attribution present and legible
-- [ ] Silkscreen does not overlap pads, holes, copper, or keepouts
-- [ ] Gerber files reviewed in viewer
-- [ ] First-article production photo obtained
-- [ ] Evidence reviewer and date recorded
-
-**Blocker**: No owner-supplied KiCad screenshots, Gerber previews, ERC/DRC results, or manufacturing photos are recorded.
+**Note**: Owner attestation; supporting ERC/DRC reports, Gerber renders, and assembly photos are retained by the owner, not committed here.
 
 ### 7. Documentation Completeness
 
@@ -137,8 +135,8 @@ Before publishing release:
 - [ ] Repository integrity verified
 - [ ] Legacy binary hashes verified
 - [ ] QMK build evidence obtained (Gate 3)
-- [ ] Device enumeration and VIA test passed (Gate 4)
-- [ ] KiCad owner evidence obtained (Gate 6)
+- [x] Device enumeration and VIA test passed (Gate 4, owner-attested)
+- [x] KiCad owner evidence obtained (Gate 6, owner-attested)
 - [ ] Documentation links verified
 - [ ] Release artifacts prepared
 - [ ] Rollback artifacts preserved
@@ -157,13 +155,13 @@ Before publishing release:
 
 ## Known Issues
 
-**Status**: Unresolved provenance and unverified evidence until gates pass.
+**Status**: QMK build provenance remains incomplete. Device and hardware checks are owner-attested.
 
 - **QMK Build Evidence** (Gate 3): No QMK commit, build command, or reproduction attempt recorded. Provenance incomplete.
-- **Device Test** (Gate 4): No USB enumeration log, key test results, or VIA detection screenshot recorded. Functional verification incomplete.
-- **KiCad Owner Evidence** (Gate 6): No ERC/DRC results, Gerber previews, or manufacturing photos recorded. Hardware verification incomplete.
+- **Device Test** (Gate 4): Owner-attested (2026-10-10) — device flashed, enumerated, VIA-detected, and shipped working. Raw logs/screenshots retained by owner. See `evidence/device-test.md`.
+- **KiCad Owner Evidence** (Gate 6): Owner-attested (2026-10-10) — ERC/DRC pass, Gerber matches production, first-article fabricated and sold. Raw artifacts retained by owner. See `evidence/kicad-owner-verification.md`.
 
-These issues block release. Once all gates pass, this section should be updated to reflect resolved status or remaining known issues (if any).
+Gate 3 (QMK build provenance) remains open and is the only release-blocking item; Gates 4 and 6 are satisfied by owner attestation above.
 
 ---
 
