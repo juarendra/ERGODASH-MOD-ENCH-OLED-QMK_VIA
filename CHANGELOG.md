@@ -142,10 +142,10 @@ Units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" require no changes:
 - [ ] Establish QMK build baseline (Task 5)
 - [ ] Create ENCHDASH-branded firmware target (Task 6)
 - [ ] Generate new VIA JSON with ENCHDASH identity (Task 6)
-- [ ] Obtain valid USB VID/PID allocation
+- [x] Obtain valid USB VID/PID allocation — pid.codes `0x1209:0x2013`, PR #1303
 - [ ] Update KiCad silkscreen per owner guide
 - [ ] Manufacture first ENCHDASH-branded PCB batch
-- [ ] Repository rename: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH-QMK-VIA`
+- [x] Repository rename: `ERGODASH-MOD-ENCH-OLED-QMK_VIA` → `ENCHDASH-QMK-VIA`
 
 ### Under Consideration
 
@@ -182,7 +182,7 @@ Units sold as "ERGODASH-MOD-ENCH-OLED-QMK_VIA" require no changes:
 
 ## Contact
 
-- **Repository**: https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA (pending rename)
+- **Repository**: https://github.com/juarendra/ENCHDASH-QMK-VIA
 - **Commercial**: Positron Electronic
 - **Issues**: GitHub issue tracker
 - **Email**: jrjuarendra@gmail.com (from firmware copyright headers)

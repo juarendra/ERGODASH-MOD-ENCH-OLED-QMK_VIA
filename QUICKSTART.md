@@ -90,7 +90,7 @@ Validation: tests pass, validator all 7 sections pass
 ## Manual Check di GitHub
 
 Cek manual di GitHub (tidak bisa diverifikasi dari repo):
-1. Buka https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
+1. Buka https://github.com/juarendra/ENCHDASH-QMK-VIA
 2. Cek README tampil dengan "ENCHDASH"
 3. Cek badge LICENSE muncul (auto-detect GitHub)
 ---

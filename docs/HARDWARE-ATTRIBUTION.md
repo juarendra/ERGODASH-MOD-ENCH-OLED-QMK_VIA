@@ -188,7 +188,7 @@ This approach ensures that ENCHDASH remains recognizable as an ErgoDash derivati
 ## Contact
 
 For questions about ENCHDASH hardware modifications:
-- **Repository**: https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
+- **Repository**: https://github.com/juarendra/ENCHDASH-QMK-VIA
 - **Commercial identity**: Positron Electronic
 - **Copyright holder (modifications)**: Juarendra Ramadhani
 

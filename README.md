@@ -355,7 +355,7 @@ Future ENCHDASH firmware will be released separately. Existing units do not requ
 
 ## Contact
 
-- **Repository**: https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
+- **Repository**: https://github.com/juarendra/ENCHDASH-QMK-VIA
 - **Commercial identity**: Positron Electronic
 - **Copyright holder (modifications)**: Juarendra Ramadhani
 

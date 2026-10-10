@@ -320,7 +320,7 @@ qmk compile -kb ergodash/rev1 -km myname
 
 ## Support and Resources
 
-- **Repository**: https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
+- **Repository**: https://github.com/juarendra/ENCHDASH-QMK-VIA
 - **QMK Documentation**: https://docs.qmk.fm/
 - **VIA Documentation**: https://docs.keeb.io/via
 - **Firmware manifest**: [FIRMWARE/manifest.json](../FIRMWARE/manifest.json)

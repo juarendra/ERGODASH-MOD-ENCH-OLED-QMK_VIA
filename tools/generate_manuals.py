@@ -39,7 +39,7 @@ MUTED = colors.HexColor("#64748B")     # slate
 LIGHT = colors.HexColor("#F1F5F9")     # light slate
 RULE = colors.HexColor("#1E293B")
 
-REPO_URL = "https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA"
+REPO_URL = "https://github.com/juarendra/ENCHDASH-QMK-VIA"
 CANON_JSON = "NEW_ErgoDash_4key_V3_mod_positron_elektronik.json"
 
 styles = getSampleStyleSheet()

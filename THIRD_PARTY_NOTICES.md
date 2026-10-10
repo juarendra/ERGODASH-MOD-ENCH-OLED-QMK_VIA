@@ -132,6 +132,6 @@ The footprint usage audit was performed on 2026-10-10 by parsing `(footprint "li
 ## Contact
 
 For questions about third-party component usage or licensing:
-- **Repository**: https://github.com/juarendra/ERGODASH-MOD-ENCH-OLED-QMK_VIA
+- **Repository**: https://github.com/juarendra/ENCHDASH-QMK-VIA
 - **Commercial identity**: Positron Electronic
 - **Copyright holder for modifications**: Juarendra Ramadhani
